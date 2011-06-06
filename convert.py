@@ -30,6 +30,7 @@ class DialogConvert(QtGui.QProgressDialog):
         self.setWindowTitle('Exporting book...')
         self.setMaximum(len(self.book.images))
         self.setValue(0)
+        self.delta = 0
 
 
     def showEvent(self, event):
@@ -42,7 +43,7 @@ class DialogConvert(QtGui.QProgressDialog):
     def onTimer(self):
         index = self.value()
         directory = os.path.join(unicode(self.directory), unicode(self.book.title))
-        target = os.path.join(directory, '%05d.png' % index)
+        target = os.path.join(directory, '%05d.png')
         source = unicode(self.book.images[index])
 
         if index == 0:
@@ -66,7 +67,7 @@ class DialogConvert(QtGui.QProgressDialog):
                 mangaSaveName = base + '.manga_save'
                 if self.book.overwrite or not os.path.isfile(mangaSaveName):
                     mangaSave = open(base + '.manga_save', 'w')
-                    saveData = u'LAST=/mnt/us/pictures/%s/%s' % (self.book.title, os.path.split(target)[1])
+                    saveData = u'LAST=00000.png' # for cbz format
                     mangaSave.write(saveData.encode('utf-8'))
                     mangaSave.close()
 
@@ -79,7 +80,7 @@ class DialogConvert(QtGui.QProgressDialog):
 
         try:
             if self.book.overwrite or not os.path.isfile(target):
-                image.convertImage(source, target, str(self.book.device), self.book.imageFlags)
+                self.delta += image.convertImage(source, target, index+self.delta, str(self.book.device), self.book.imageFlags)
         except RuntimeError, error:
             result = QtGui.QMessageBox.critical(
                 self,

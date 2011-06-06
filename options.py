@@ -41,6 +41,8 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
         self.checkboxResize.setChecked(QtCore.Qt.Checked if self.book.imageFlags & ImageFlags.Resize else QtCore.Qt.Unchecked)
         self.checkboxQuantize.setChecked(QtCore.Qt.Checked if self.book.imageFlags & ImageFlags.Quantize else QtCore.Qt.Unchecked)
         self.checkboxFrame.setChecked(QtCore.Qt.Checked if self.book.imageFlags & ImageFlags.Frame else QtCore.Qt.Unchecked)
+        self.checkboxSplit.setChecked(QtCore.Qt.Checked if self.book.imageFlags & ImageFlags.Split else QtCore.Qt.Unchecked)
+        self.checkboxReverse.setChecked(QtCore.Qt.Checked if self.book.imageFlags & ImageFlags.Reverse else QtCore.Qt.Unchecked)
 
 
     def moveDialogToOptions(self):
@@ -57,6 +59,10 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
             imageFlags |= ImageFlags.Quantize
         if self.checkboxFrame.checkState() == QtCore.Qt.Checked:
             imageFlags |= ImageFlags.Frame
+        if self.checkboxSplit.checkState() == QtCore.Qt.Checked:
+            imageFlags |= ImageFlags.Split
+        if self.checkboxReverse.checkState() == QtCore.Qt.Checked:
+            imageFlags |= ImageFlags.Reverse
 
         modified = (
             self.book.title != title or

@@ -22,6 +22,8 @@ class ImageFlags:
     Resize = 1 << 1
     Frame = 1 << 2
     Quantize = 1 << 3
+    Split = 1 << 4
+    Reverse = 1 << 5
 
 
 class KindleData:
@@ -137,7 +139,7 @@ def frameImage(image, foreground, background, size):
     return imageBg
 
 
-def convertImage(source, target, device, flags):
+def convertImage(source, target, index, device, flags):
     try:
         size, palette = KindleData.Profiles[device]
     except KeyError:
@@ -147,18 +149,37 @@ def convertImage(source, target, device, flags):
         image = Image.open(source)
     except IOError:
         raise RuntimeError('Cannot read image file %s' % source)
-
     image = formatImage(image)
-    if flags & ImageFlags.Orient:
-        image = orientImage(image, size)
-    if flags & ImageFlags.Resize:
-        image = resizeImage(image, size)
-    if flags & ImageFlags.Frame:
-        image = frameImage(image, tuple(palette[:3]), tuple(palette[-3:]), size)
-    if flags & ImageFlags.Quantize:
-        image = quantizeImage(image, palette)
+    delta = 0
+    count = 1
+    split = False
+    widthDev, heightDev = size
+    widthImg, heightImg = image.size
+    if flags & ImageFlags.Split and (widthImg > heightImg) != (widthDev > heightDev):
+        count += 1
+        split = True
+    boxlist = [(0,0,widthImg/2,heightImg),(widthImg/2,0,widthImg,heightImg)]
+    while count>0:
+        if split:
+            if flags & ImageFlags.Reverse:
+                tmp_image = image.crop(boxlist[(count+1)%2])
+            else:
+                tmp_image = image.crop(boxlist[count%2])
+        else:
+            tmp_image = image
+        if flags & ImageFlags.Orient:
+            tmp_image = orientImage(tmp_image, size)
+        if flags & ImageFlags.Resize:
+            tmp_image = resizeImage(tmp_image, size)
+        if flags & ImageFlags.Frame:
+            tmp_image = frameImage(tmp_image, tuple(palette[:3]), tuple(palette[-3:]), size)
+        if flags & ImageFlags.Quantize:
+            tmp_image = quantizeImage(tmp_image, palette)
+        try:
+            tmp_image.save(target%(index+delta))
+        except IOError:
+            raise RuntimeError('Cannot write image file %s' % target)
+        delta += 1
+        count -= 1
 
-    try:
-        image.save(target)
-    except IOError:
-        raise RuntimeError('Cannot write image file %s' % target)
+    return delta - 1

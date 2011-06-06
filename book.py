@@ -28,7 +28,7 @@ from ui.book_ui import Ui_MainWindowBook
 class Book:
     DefaultDevice = 'Kindle 3'
     DefaultOverwrite = True
-    DefaultImageFlags = ImageFlags.Orient | ImageFlags.Resize | ImageFlags.Quantize
+    DefaultImageFlags = ImageFlags.Orient | ImageFlags.Resize | ImageFlags.Quantize | ImageFlags.Split
 
 
     def __init__(self):
@@ -368,7 +368,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
                     path = os.path.join(root, filename)
                     if self.isImageFile(path):
                         filenames.append(path)
-
+	filenames.sort()
         self.addImageFiles(filenames)
 
 

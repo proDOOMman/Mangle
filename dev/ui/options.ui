@@ -117,6 +117,20 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QCheckBox" name="checkboxSplit">
+        <property name="text">
+         <string>Split images to match aspect ratio</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkboxReverse">
+        <property name="text">
+         <string>Reverse split order</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
