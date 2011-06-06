@@ -245,9 +245,6 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         if not directory.isNull():
             dialog = DialogConvert(self, self.book, directory)
             dialog.exec_()
-            if self.book.imageFlags & ImageFlags.Cbz:
-                #TODO: convert into CBZ format
-                pass
 
 
     def onHelpHomepage(self):
