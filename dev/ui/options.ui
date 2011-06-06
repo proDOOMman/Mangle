@@ -131,6 +131,13 @@
         </property>
        </widget>
       </item>
+      <item>
+       <widget class="QCheckBox" name="checkboxCbz">
+        <property name="text">
+         <string>Pack into CBZ file</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>

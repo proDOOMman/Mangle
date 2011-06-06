@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'dev/ui/options.ui'
 #
-# Created: Mon Jun  6 19:59:25 2011
+# Created: Mon Jun  6 20:44:02 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -71,6 +71,9 @@ class Ui_DialogOptions(object):
         self.checkboxReverse = QtGui.QCheckBox(self.groupBox_2)
         self.checkboxReverse.setObjectName(_fromUtf8("checkboxReverse"))
         self.verticalLayout_2.addWidget(self.checkboxReverse)
+        self.checkboxCbz = QtGui.QCheckBox(self.groupBox_2)
+        self.checkboxCbz.setObjectName(_fromUtf8("checkboxCbz"))
+        self.verticalLayout_2.addWidget(self.checkboxCbz)
         self.verticalLayout.addWidget(self.groupBox_2)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
@@ -102,4 +105,5 @@ class Ui_DialogOptions(object):
         self.checkboxFrame.setText(QtGui.QApplication.translate("DialogOptions", "Draw frame around images", None, QtGui.QApplication.UnicodeUTF8))
         self.checkboxSplit.setText(QtGui.QApplication.translate("DialogOptions", "Split images to match aspect ratio", None, QtGui.QApplication.UnicodeUTF8))
         self.checkboxReverse.setText(QtGui.QApplication.translate("DialogOptions", "Reverse split order", None, QtGui.QApplication.UnicodeUTF8))
+        self.checkboxCbz.setText(QtGui.QApplication.translate("DialogOptions", "Pack into CBZ file", None, QtGui.QApplication.UnicodeUTF8))
 

@@ -17,7 +17,8 @@ import os
 from PyQt4 import QtGui, QtCore
 
 import image
-
+from image import ImageFlags
+import zipfile
 
 class DialogConvert(QtGui.QProgressDialog):
     def __init__(self, parent, book, directory):
@@ -54,7 +55,10 @@ class DialogConvert(QtGui.QProgressDialog):
                 QtGui.QMessageBox.critical(self, 'Mangle', 'Cannot create directory %s' % directory)
                 self.close()
                 return
-
+            
+            if self.book.imageFlags & ImageFlags.Cbz:
+                self.cbz = zipfile.ZipFile(os.path.join(os.path.join(unicode(self.directory), unicode(self.book.title)),unicode(self.book.title)+".cbz"), "w")
+            
             try:
                 base = os.path.join(directory, unicode(self.book.title))
 
@@ -67,7 +71,10 @@ class DialogConvert(QtGui.QProgressDialog):
                 mangaSaveName = base + '.manga_save'
                 if self.book.overwrite or not os.path.isfile(mangaSaveName):
                     mangaSave = open(base + '.manga_save', 'w')
-                    saveData = u'LAST=00000.png' # for cbz format
+                    if self.book.imageFlags & ImageFlags.Cbz:
+                        saveData = u'LAST=00000.png' # for cbz format
+                    else:
+                        saveData = u'LAST=/mnt/us/pictures/%s/%s' % (self.book.title, os.path.split(target)[1])
                     mangaSave.write(saveData.encode('utf-8'))
                     mangaSave.close()
 
@@ -80,7 +87,12 @@ class DialogConvert(QtGui.QProgressDialog):
 
         try:
             if self.book.overwrite or not os.path.isfile(target):
-                self.delta += image.convertImage(source, target, index+self.delta, str(self.book.device), self.book.imageFlags)
+                diff, targets = image.convertImage(source, target, index+self.delta, str(self.book.device), self.book.imageFlags)
+                self.delta += diff
+                if self.book.imageFlags & ImageFlags.Cbz:
+                    for t in targets:
+                        self.cbz.write(t,os.path.split(t)[1])
+                        os.remove(t)
         except RuntimeError, error:
             result = QtGui.QMessageBox.critical(
                 self,
@@ -92,5 +104,6 @@ class DialogConvert(QtGui.QProgressDialog):
             if result == QtGui.QMessageBox.Abort:
                 self.close()
                 return
-
+        if index == len(self.book.images) and self.book.imageFlags & ImageFlags.Cbz:
+            self.cbz.close()
         self.setValue(index + 1)

@@ -24,6 +24,7 @@ class ImageFlags:
     Quantize = 1 << 3
     Split = 1 << 4
     Reverse = 1 << 5
+    Cbz = 1 << 6
 
 
 class KindleData:
@@ -159,6 +160,7 @@ def convertImage(source, target, index, device, flags):
         count += 1
         split = True
     boxlist = [(0,0,widthImg/2,heightImg),(widthImg/2,0,widthImg,heightImg)]
+    targets = []
     while count>0:
         if split:
             if flags & ImageFlags.Reverse:
@@ -179,7 +181,8 @@ def convertImage(source, target, index, device, flags):
             tmp_image.save(target%(index+delta))
         except IOError:
             raise RuntimeError('Cannot write image file %s' % target)
+        targets.append(target%(index+delta))
         delta += 1
         count -= 1
 
-    return delta - 1
+    return delta - 1, targets
