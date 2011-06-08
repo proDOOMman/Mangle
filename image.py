@@ -14,8 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageStat
 
 
 class ImageFlags:
@@ -26,6 +25,7 @@ class ImageFlags:
     Split = 1 << 4
     Reverse = 1 << 5
     Cbz = 1 << 6
+    Crop = 1 << 7
 
 
 class KindleData:
@@ -140,6 +140,48 @@ def frameImage(image, foreground, background, size):
 
     return imageBg
 
+def cropWhiteSpace(image):
+#    print "Old size: %sx%s"%(image.size[0],image.size[1])
+    widthImg, heightImg = image.size
+    delta = 10
+    diff = delta
+    threshold = 5
+    # top
+    while ImageStat.Stat(image.crop((0,0,widthImg,diff))).var[0] < threshold \
+    and diff < heightImg:
+        diff += delta
+    diff -= delta
+#    print "Top crop: %s"%diff
+    image = image.crop((0,diff,widthImg,heightImg))
+    widthImg, heightImg = image.size
+    diff = delta
+    # left
+    while ImageStat.Stat(image.crop((0,0,diff,heightImg))).var[0] < threshold \
+    and diff < widthImg:
+        diff += delta
+    diff -= delta
+#    print "Left crop: %s"%diff
+    image = image.crop((diff,0,widthImg,heightImg))
+    widthImg, heightImg = image.size
+    diff = delta
+    # down
+    while ImageStat.Stat(image.crop((0,heightImg-diff,widthImg,heightImg))).var[0] < threshold \
+    and diff < heightImg:
+        diff += delta
+    diff -= delta
+#    print "Down crop: %s"%diff
+    image = image.crop((0,0,widthImg,heightImg-diff))
+    widthImg, heightImg = image.size
+    diff = delta
+    # right
+    while ImageStat.Stat(image.crop((widthImg-diff,0,widthImg,heightImg))).var[0] < threshold \
+    and diff < widthImg:
+        diff += delta
+    diff -= delta
+#    print "Right crop: %s"%diff
+    image = image.crop((0,0 ,widthImg-diff,heightImg))
+#    print "New size: %sx%s"%(image.size[0],image.size[1])
+    return image
 
 def convertImage(source, target, index, device, flags):
     try:
@@ -170,6 +212,8 @@ def convertImage(source, target, index, device, flags):
                 tmp_image = image.crop(boxlist[count%2])
         else:
             tmp_image = image
+        if flags & ImageFlags.Crop:
+            tmp_image = cropWhiteSpace(tmp_image)
         if flags & ImageFlags.Orient:
             tmp_image = orientImage(tmp_image, size)
         if flags & ImageFlags.Resize:

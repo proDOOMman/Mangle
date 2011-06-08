@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'dev/ui/options.ui'
 #
-# Created: Mon Jun  6 20:44:02 2011
+# Created: Wed Jun  8 11:15:12 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -17,7 +17,7 @@ except AttributeError:
 class Ui_DialogOptions(object):
     def setupUi(self, DialogOptions):
         DialogOptions.setObjectName(_fromUtf8("DialogOptions"))
-        DialogOptions.resize(350, 350)
+        DialogOptions.resize(350, 394)
         self.verticalLayout = QtGui.QVBoxLayout(DialogOptions)
         self.verticalLayout.setObjectName(_fromUtf8("verticalLayout"))
         self.groupBox = QtGui.QGroupBox(DialogOptions)
@@ -74,6 +74,9 @@ class Ui_DialogOptions(object):
         self.checkboxCbz = QtGui.QCheckBox(self.groupBox_2)
         self.checkboxCbz.setObjectName(_fromUtf8("checkboxCbz"))
         self.verticalLayout_2.addWidget(self.checkboxCbz)
+        self.checkboxCrop = QtGui.QCheckBox(self.groupBox_2)
+        self.checkboxCrop.setObjectName(_fromUtf8("checkboxCrop"))
+        self.verticalLayout_2.addWidget(self.checkboxCrop)
         self.verticalLayout.addWidget(self.groupBox_2)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
@@ -106,4 +109,5 @@ class Ui_DialogOptions(object):
         self.checkboxSplit.setText(QtGui.QApplication.translate("DialogOptions", "Split images to match aspect ratio", None, QtGui.QApplication.UnicodeUTF8))
         self.checkboxReverse.setText(QtGui.QApplication.translate("DialogOptions", "Reverse split order", None, QtGui.QApplication.UnicodeUTF8))
         self.checkboxCbz.setText(QtGui.QApplication.translate("DialogOptions", "Pack into CBZ file", None, QtGui.QApplication.UnicodeUTF8))
+        self.checkboxCrop.setText(QtGui.QApplication.translate("DialogOptions", "Crop white space", None, QtGui.QApplication.UnicodeUTF8))
 

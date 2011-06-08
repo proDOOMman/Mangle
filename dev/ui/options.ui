@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>350</height>
+    <height>394</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -135,6 +135,13 @@
        <widget class="QCheckBox" name="checkboxCbz">
         <property name="text">
          <string>Pack into CBZ file</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QCheckBox" name="checkboxCrop">
+        <property name="text">
+         <string>Crop white space</string>
         </property>
        </widget>
       </item>

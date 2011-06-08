@@ -29,7 +29,7 @@ from ui.book_ui import Ui_MainWindowBook
 class Book:
     DefaultDevice = 'Kindle 3'
     DefaultOverwrite = True
-    DefaultImageFlags = ImageFlags.Orient | ImageFlags.Resize | ImageFlags.Quantize | ImageFlags.Split | ImageFlags.Cbz
+    DefaultImageFlags = ImageFlags.Orient | ImageFlags.Resize | ImageFlags.Quantize | ImageFlags.Split | ImageFlags.Cbz | ImageFlags.Crop
 
 
     def __init__(self):
