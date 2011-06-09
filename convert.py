@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2010  Alex Yatskov
 # Copyright (C) 2011  Stanislav (proDOOMman) Kosolapov <prodoomman@gmail.com>
 #
@@ -30,7 +29,7 @@ class DialogConvert(QtGui.QProgressDialog):
         self.directory = directory
 
         self.timer = None
-        self.setWindowTitle(str(self.tr('Exporting book...')))
+        self.setWindowTitle('Exporting book...')
         self.setMaximum(len(self.book.images))
         self.setValue(0)
         self.delta = 0
@@ -54,15 +53,12 @@ class DialogConvert(QtGui.QProgressDialog):
                 if not os.path.isdir(directory):
                     os.makedirs(directory)
             except OSError:
-                QtGui.QMessageBox.critical(self, 'Mangle', str(self.tr('Cannot create directory %s')) % directory)
+                QtGui.QMessageBox.critical(self, 'Mangle', 'Cannot create directory %s' % directory)
                 self.close()
                 return
             
             if self.book.imageFlags & ImageFlags.Cbz:
-                try:
-                    self.cbz = zipfile.ZipFile(os.path.join(os.path.join(unicode(self.directory), unicode(self.book.title)),unicode(self.book.title)+".cbz"), "w")
-                except IOError:
-                    raise RuntimeError(str(self.tr('Cannot create cbz file')))
+                self.cbz = zipfile.ZipFile(os.path.join(os.path.join(unicode(self.directory), unicode(self.book.title)),unicode(self.book.title)+".cbz"), "w")
             
             try:
                 base = os.path.join(directory, unicode(self.book.title))
@@ -84,11 +80,11 @@ class DialogConvert(QtGui.QProgressDialog):
                     mangaSave.close()
 
             except IOError:
-                QtGui.QMessageBox.critical(self, 'Mangle', str(self.tr('Cannot write manga file(s) to directory %s')) % directory)
+                QtGui.QMessageBox.critical(self, 'Mangle', 'Cannot write manga file(s) to directory %s' % directory)
                 self.close()
                 return False
 
-        self.setLabelText(str(self.tr('Processing %s...')) % os.path.split(source)[1])
+        self.setLabelText('Processing %s...' % os.path.split(source)[1])
 
         try:
             if self.book.overwrite or not os.path.isfile(target):
@@ -96,11 +92,8 @@ class DialogConvert(QtGui.QProgressDialog):
                 self.delta += diff
                 if self.book.imageFlags & ImageFlags.Cbz:
                     for t in targets:
-                        try:
-                            self.cbz.write(t,os.path.split(t)[1])
-                            os.remove(t)
-                        except IOError:
-                            raise RuntimeError(str(self.tr('Cannot write into cbz file')))
+                        self.cbz.write(t,os.path.split(t)[1])
+                        os.remove(t)
         except RuntimeError, error:
             result = QtGui.QMessageBox.critical(
                 self,

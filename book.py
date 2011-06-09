@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2010  Alex Yatskov
 # Copyright (C) 2011  Stanislav (proDOOMman) Kosolapov <prodoomman@gmail.com>
 #
@@ -31,6 +30,7 @@ class Book:
     DefaultDevice = 'Kindle 3'
     DefaultOverwrite = True
     DefaultImageFlags = ImageFlags.Orient | ImageFlags.Resize | ImageFlags.Quantize | ImageFlags.Split | ImageFlags.Cbz | ImageFlags.Crop
+
 
     def __init__(self):
         self.images = []
@@ -65,7 +65,7 @@ class Book:
             fileXml.write(textXml)
             fileXml.close()
         except IOError:
-            raise RuntimeError(str(QtCore.QCoreApplication.translate("book",'Cannot create book file %s') % filename))
+            raise RuntimeError('Cannot create book file %s' % filename)
 
         self.filename = filename
         self.modified = False
@@ -77,16 +77,16 @@ class Book:
             textXml = fileXml.read()
             fileXml.close()
         except IOError:
-            raise RuntimeError(str(QtCore.QCoreApplication.translate("book",'Cannot open book file %s') % filename))
+            raise RuntimeError('Cannot open book file %s' % filename)
 
         document = QtXml.QDomDocument()
 
         if not document.setContent(QtCore.QString.fromUtf8(textXml)):
-            raise RuntimeError(str(QtCore.QCoreApplication.translate("book",'Error parsing book file %s') % filename))
+            raise RuntimeError('Error parsing book file %s' % filename)
 
         root = document.documentElement()
         if root.tagName() != 'book':
-            raise RuntimeError(str(QtCore.QCoreApplication.translate("book",'Unexpected book format in file %s') % filename))
+            raise RuntimeError('Unexpected book format in file %s' % filename)
 
         self.title = root.attribute('title', 'Untitled')
         self.overwrite = root.attribute('overwrite', 'true' if Book.DefaultOverwrite else 'false') == 'true'
@@ -169,8 +169,8 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
 
         filename = QtGui.QFileDialog.getOpenFileName(
             parent=self,
-            caption=QtCore.QCoreApplication.translate("book",'Select a book file to open'),
-            filter=QtCore.QCoreApplication.translate("book",'Mangle files (*.mngl);;All files (*.*)')
+            caption='Select a book file to open',
+            filter='Mangle files (*.mngl);;All files (*.*)'
         )
         if not filename.isNull():
             self.loadBook(self.cleanupBookFile(filename))
@@ -203,14 +203,14 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
     def onBookAddFiles(self):
         filenames = QtGui.QFileDialog.getOpenFileNames(
             parent=self,
-            caption=QtCore.QCoreApplication.translate("book",'Select image file(s) to add'),
-            filter=QtCore.QCoreApplication.translate("book",'Image files (*.jpeg *.jpg *.gif *.png);;All files (*.*)')
+            caption='Select image file(s) to add',
+            filter='Image files (*.jpeg *.jpg *.gif *.png);;All files (*.*)'
         )
         self.addImageFiles(filenames)
 
 
     def onBookAddDirectory(self):
-        directory = QtGui.QFileDialog.getExistingDirectory(self,QtCore.QCoreApplication.translate("book",'Select an image directory to add'))
+        directory = QtGui.QFileDialog.getExistingDirectory(self, 'Select an image directory to add')
         if not directory.isNull():
             self.addImageDirs([directory])
 
@@ -234,7 +234,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
 
     def onBookExport(self):
         if len(self.book.images) == 0:
-            QtGui.QMessageBox.warning(self, 'Mangle', QtCore.QCoreApplication.translate("book",'This book has no images to export'))
+            QtGui.QMessageBox.warning(self, 'Mangle', 'This book has no images to export')
             return
 
         if self.book.title == None:
@@ -242,7 +242,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
             if dialog.exec_() == QtGui.QDialog.Rejected:
                 return
 
-        directory = QtGui.QFileDialog.getExistingDirectory(self, QtCore.QCoreApplication.translate("book",'Select a directory to export book to'))
+        directory = QtGui.QFileDialog.getExistingDirectory(self, 'Select a directory to export book to')
         if not directory.isNull():
             dialog = DialogConvert(self, self.book, directory)
             dialog.exec_()
@@ -265,7 +265,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         result = QtGui.QMessageBox.question(
             self,
             'Mangle',
-            QtCore.QCoreApplication.translate("book",'Save changes to the current book?'),
+            'Save changes to the current book?',
             QtGui.QMessageBox.Yes | QtGui.QMessageBox.No | QtGui.QMessageBox.Cancel,
             QtGui.QMessageBox.Yes
         )
@@ -278,15 +278,15 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
 
     def saveBook(self, browse=False):
         if self.book.title == None:
-            QtGui.QMessageBox.warning(self, 'Mangle', QtCore.QCoreApplication.translate("book",'You must specify a title for this book before saving'))
+            QtGui.QMessageBox.warning(self, 'Mangle', 'You must specify a title for this book before saving')
             return False
 
         filename = self.book.filename
         if filename == None or browse:
             filename = QtGui.QFileDialog.getSaveFileName(
                 parent=self,
-                caption=QtCore.QCoreApplication.translate("book",'Select a book file to save as'),
-                filter=QtCore.QCoreApplication.translate("book",'Mangle files (*.mngl);;All files (*.*)')
+                caption='Select a book file to save as',
+                filter='Mangle files (*.mngl);;All files (*.*)'
             )
             if filename.isNull():
                 return False
@@ -308,8 +308,8 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
             QtGui.QMessageBox.critical(self, 'Mangle', str(error))
         else:
             self.listWidgetFiles.clear()
-            for im in self.book.images:
-                self.listWidgetFiles.addItem(im)
+            for image in self.book.images:
+                self.listWidgetFiles.addItem(image)
 
 
     def shiftImageFile(self, row, delta):
@@ -369,7 +369,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
                     path = os.path.join(root, filename)
                     if self.isImageFile(path):
                         filenames.append(path)
-        filenames.sort()
+	filenames.sort()
         self.addImageFiles(filenames)
 
 
