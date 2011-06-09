@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 # Copyright (C) 2010  Alex Yatskov
+# Copyright (C) 2011  Stanislav (proDOOMman) Kosolapov <prodoomman@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -17,11 +18,15 @@
 
 import sys
 from PyQt4 import QtGui
+from PyQt4.QtCore import QTranslator
+import locale
 
 from book import MainWindowBook
 
-
 application = QtGui.QApplication(sys.argv)
+tr = QTranslator()
+tr.load("mangle_%s.qm"%locale.getlocale()[0])
+application.installTranslator(tr)
 filename = sys.argv[1] if len(sys.argv) > 1 else None
 window = MainWindowBook(filename)
 window.show()
