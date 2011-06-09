@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="ru_RU">
+<!DOCTYPE TS><TS version="1.1" language="ru_RU">
 <context>
     <name>DialogAbout</name>
     <message>
@@ -30,6 +29,44 @@ p, li { white-space: pre-wrap; }
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt;&quot;&gt;Обработчик манги за авторством Alex Yatskov для электронных книг Kindle. Подробности о лицензии - в файле &lt;/span&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; font-style:italic;&quot;&gt;license.txt&lt;/span&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt;&quot;&gt;. Домашняя страница &lt;/span&gt;&lt;a href=&quot;http://foosoft.net/mangle&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://foosoft.net/mangle&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt;&quot;&gt;.&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:&apos;Sans&apos;; font-size:10pt;&quot;&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt;&quot;&gt;На данный момент программа дорабатывается Станиславом (proDOOMman) Косолаповым. Исходники доступны на сайте &lt;/span&gt;&lt;a href=&quot;http://github.com/proDOOMman/Mangle&quot;&gt;&lt;span style=&quot; font-family:&apos;Sans&apos;; font-size:10pt; text-decoration: underline; color:#0000ff;&quot;&gt;http://github.com/proDOOMman/Mangle&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+</context>
+<context>
+    <name>DialogConvert</name>
+    <message>
+        <location filename="convert.py" line="33"/>
+        <source>Exporting book...</source>
+        <translation>Экспорт книги...</translation>
+    </message>
+    <message>
+        <location filename="convert.py" line="57"/>
+        <source>Cannot create directory %s</source>
+        <translation>Невозможно создать директорию %s</translation>
+    </message>
+    <message>
+        <location filename="convert.py" line="87"/>
+        <source>Cannot write manga file(s) to directory %s</source>
+        <translation>Невозможно записать файлы манги в директорию %s</translation>
+    </message>
+    <message>
+        <location filename="convert.py" line="91"/>
+        <source>Processing %s...</source>
+        <translation>Обработка %s...</translation>
+    </message>
+    <message>
+        <location filename="convert.py" line="65"/>
+        <source>Cannot read create cbz file</source>
+        <translation type="obsolete">Невозможно создать cbz файл</translation>
+    </message>
+    <message>
+        <location filename="convert.py" line="103"/>
+        <source>Cannot write into cbz file</source>
+        <translation>Невозможно записать в cbz файл</translation>
+    </message>
+    <message>
+        <location filename="convert.py" line="65"/>
+        <source>Cannot create cbz file</source>
+        <translation>Невозможно создать cbz файл</translation>
     </message>
 </context>
 <context>
@@ -351,6 +388,79 @@ p, li { white-space: pre-wrap; }
         <location filename="book_ui.py" line="180"/>
         <source>Ctrl+PgDown</source>
         <translation>Ctrl+PgDn</translation>
+    </message>
+</context>
+<context>
+    <name>book</name>
+    <message>
+        <location filename="book.py" line="80"/>
+        <source>Cannot open book file %s</source>
+        <translation>Невозможно открыть файл книги %s</translation>
+    </message>
+    <message>
+        <location filename="book.py" line="68"/>
+        <source>Cannot create book file %s</source>
+        <translation>Невозможно создать файл книги %s</translation>
+    </message>
+    <message>
+        <location filename="book.py" line="85"/>
+        <source>Error parsing book file %s</source>
+        <translation>Ошибка разбора файла книги %s</translation>
+    </message>
+    <message>
+        <location filename="book.py" line="89"/>
+        <source>Unexpected book format in file %s</source>
+        <translation>Неожиданный формат файла книги %s</translation>
+    </message>
+    <message>
+        <location filename="book.py" line="170"/>
+        <source>Select a book file to open</source>
+        <translation>Выберите файл книги для открытия</translation>
+    </message>
+    <message>
+        <location filename="book.py" line="286"/>
+        <source>Mangle files (*.mngl);;All files (*.*)</source>
+        <translation>Файлы Mangle (*.mngl);;Все файлы (*.*)</translation>
+    </message>
+    <message>
+        <location filename="book.py" line="204"/>
+        <source>Select image file(s) to add</source>
+        <translation>Выберите изображения для добавления</translation>
+    </message>
+    <message>
+        <location filename="book.py" line="204"/>
+        <source>Image files (*.jpeg *.jpg *.gif *.png);;All files (*.*)</source>
+        <translation>Изображения (*.jpeg *.jpg *.gif *.png);;Все файлы (*.*)</translation>
+    </message>
+    <message>
+        <location filename="book.py" line="213"/>
+        <source>Select an image directory to add</source>
+        <translation>Выберите директорию с изображениями для добавления</translation>
+    </message>
+    <message>
+        <location filename="book.py" line="237"/>
+        <source>This book has no images to export</source>
+        <translation>В этой книге нет изображений для экспорта</translation>
+    </message>
+    <message>
+        <location filename="book.py" line="245"/>
+        <source>Select a directory to export book to</source>
+        <translation>Выберите директорию для сохранения книги</translation>
+    </message>
+    <message>
+        <location filename="book.py" line="265"/>
+        <source>Save changes to the current book?</source>
+        <translation>Сохранить изменения для текущей книги?</translation>
+    </message>
+    <message>
+        <location filename="book.py" line="281"/>
+        <source>You must specify a title for this book before saving</source>
+        <translation>Укажите название книги перед сохранением</translation>
+    </message>
+    <message>
+        <location filename="book.py" line="286"/>
+        <source>Select a book file to save as</source>
+        <translation>Сохранить книгу как</translation>
     </message>
 </context>
 </TS>

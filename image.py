@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (C) 2010  Alex Yatskov
 # Copyright (C) 2011  Stanislav (proDOOMman) Kosolapov <prodoomman@gmail.com>
 #
@@ -15,7 +16,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from PIL import Image, ImageDraw, ImageStat
-
+from PyQt4.QtCore import QCoreApplication
 
 class ImageFlags:
     Orient = 1 << 0
@@ -187,12 +188,12 @@ def convertImage(source, target, index, device, flags):
     try:
         size, palette = KindleData.Profiles[device]
     except KeyError:
-        raise RuntimeError('Unexpected output device %s' % device)
+        raise RuntimeError(str(QCoreApplication.translate("image",'Unexpected output device %s' % device)))
 
     try:
         image = Image.open(source)
     except IOError:
-        raise RuntimeError('Cannot read image file %s' % source)
+        raise RuntimeError(str(QCoreApplication.translate("image",'Cannot read image file %s' % source)))
     image = formatImage(image)
     delta = 0
     count = 1
@@ -225,7 +226,7 @@ def convertImage(source, target, index, device, flags):
         try:
             tmp_image.save(target%(index+delta))
         except IOError:
-            raise RuntimeError('Cannot write image file %s' % target)
+            raise RuntimeError(str(QCoreApplication.translate("image",'Cannot write image file %s' % target)))
         targets.append(target%(index+delta))
         delta += 1
         count -= 1
