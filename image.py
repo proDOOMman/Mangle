@@ -225,9 +225,9 @@ def convertImage(source, target, index, device, flags):
         try:
             tmp_image.save(target%(index+delta))
         except IOError:
-            raise RuntimeError('Cannot write image file %s' % target)
+            raise RuntimeError('Cannot write image file %s' % target%(index+delta))
         targets.append(target%(index+delta))
         delta += 1
         count -= 1
 
-    return delta - 1, targets
+    return targets
