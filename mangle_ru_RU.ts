@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.0" language="ru_RU">
+<!DOCTYPE TS><TS version="1.1" language="ru_RU">
 <context>
     <name>DialogAbout</name>
     <message>
@@ -182,229 +181,239 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>MainWindowBook</name>
     <message>
-        <location filename="book_ui.py" line="137"/>
+        <location filename="book_ui.py" line="152"/>
         <source>Mangle</source>
         <translation>Mangle</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="138"/>
+        <location filename="book_ui.py" line="153"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="139"/>
+        <location filename="book_ui.py" line="154"/>
         <source>&amp;Book</source>
         <translation>&amp;Книга</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="140"/>
+        <location filename="book_ui.py" line="155"/>
         <source>&amp;Add</source>
         <translation>&amp;Добавить</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="141"/>
+        <location filename="book_ui.py" line="156"/>
         <source>&amp;Shift</source>
         <translation>&amp;Переместить</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="142"/>
+        <location filename="book_ui.py" line="158"/>
         <source>&amp;Help</source>
         <translation>&amp;Справка</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="143"/>
+        <location filename="book_ui.py" line="159"/>
         <source>toolBar</source>
         <translation>Панель инструментов</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="144"/>
+        <location filename="book_ui.py" line="160"/>
         <source>&amp;New</source>
         <translation>&amp;Новый</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="145"/>
+        <location filename="book_ui.py" line="161"/>
         <source>New book</source>
         <translation>Новая книга</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="146"/>
+        <location filename="book_ui.py" line="162"/>
         <source>Ctrl+N</source>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="147"/>
+        <location filename="book_ui.py" line="163"/>
         <source>&amp;Open...</source>
         <translation>&amp;Открыть...</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="148"/>
+        <location filename="book_ui.py" line="164"/>
         <source>Open book</source>
         <translation>Открыть книгу</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="149"/>
+        <location filename="book_ui.py" line="165"/>
         <source>Ctrl+O</source>
         <translation>Ctrl+O</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="150"/>
+        <location filename="book_ui.py" line="166"/>
         <source>&amp;Save</source>
         <translation>&amp;Сохранить</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="151"/>
+        <location filename="book_ui.py" line="167"/>
         <source>Save book</source>
         <translation>Сохранить книгу</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="152"/>
+        <location filename="book_ui.py" line="168"/>
         <source>Ctrl+S</source>
         <translation>Ctrl+S</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="153"/>
+        <location filename="book_ui.py" line="169"/>
         <source>Save &amp;as...</source>
         <translation>Сохранить &amp;как...</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="154"/>
+        <location filename="book_ui.py" line="170"/>
         <source>Save book as</source>
         <translation>Сохранить книгу как</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="155"/>
+        <location filename="book_ui.py" line="171"/>
         <source>Ctrl+Shift+S</source>
         <translation>Ctrl+Shift+S</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="156"/>
+        <location filename="book_ui.py" line="172"/>
         <source>&amp;Exit</source>
         <translation>В&amp;ыход</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="157"/>
+        <location filename="book_ui.py" line="173"/>
         <source>Ctrl+Q</source>
         <translation>Ctrl+Q</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="158"/>
+        <location filename="book_ui.py" line="174"/>
         <source>&amp;Options...</source>
         <translation>&amp;Настройки...</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="159"/>
+        <location filename="book_ui.py" line="175"/>
         <source>&amp;Remove</source>
         <translation>&amp;Удалить</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="160"/>
+        <location filename="book_ui.py" line="176"/>
         <source>Remove files</source>
         <translation>Удалить файлы</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="161"/>
+        <location filename="book_ui.py" line="177"/>
         <source>Del</source>
         <translation>Del</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="162"/>
+        <location filename="book_ui.py" line="178"/>
         <source>&amp;Export...</source>
         <translation>&amp;Экспорт...</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="163"/>
+        <location filename="book_ui.py" line="179"/>
         <source>Export book</source>
         <translation>Экспорт книги</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="164"/>
+        <location filename="book_ui.py" line="180"/>
         <source>Ctrl+E</source>
         <translation>Ctrl+E</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="165"/>
+        <location filename="book_ui.py" line="181"/>
         <source>&amp;Homepage...</source>
         <translation>До&amp;машняя страница...</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="166"/>
+        <location filename="book_ui.py" line="182"/>
         <source>&amp;About...</source>
         <translation>&amp;О программе...</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="167"/>
+        <location filename="book_ui.py" line="183"/>
         <source>About</source>
         <translation>О программе</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="168"/>
+        <location filename="book_ui.py" line="184"/>
         <source>F1</source>
         <translation>F1</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="169"/>
+        <location filename="book_ui.py" line="185"/>
         <source>&amp;Files...</source>
         <translation>&amp;Файлы...</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="170"/>
+        <location filename="book_ui.py" line="186"/>
         <source>Add files</source>
         <translation>Добавить файлы</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="171"/>
+        <location filename="book_ui.py" line="187"/>
         <source>Ctrl+F</source>
         <translation>Ctrl+F</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="172"/>
+        <location filename="book_ui.py" line="188"/>
         <source>&amp;Directory...</source>
         <translation>&amp;Директория...</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="173"/>
+        <location filename="book_ui.py" line="189"/>
         <source>Add directory</source>
         <translation>Добавить директорию</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="174"/>
+        <location filename="book_ui.py" line="190"/>
         <source>Ctrl+D</source>
         <translation>Ctrl+D</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="175"/>
+        <location filename="book_ui.py" line="191"/>
         <source>&amp;Up</source>
         <translation>&amp;Вверх</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="176"/>
+        <location filename="book_ui.py" line="192"/>
         <source>Shift files up</source>
         <translation>Переместить файлы вверх</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="177"/>
+        <location filename="book_ui.py" line="193"/>
         <source>Ctrl+PgUp</source>
         <translation>Ctrl+PgUp</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="178"/>
+        <location filename="book_ui.py" line="194"/>
         <source>&amp;Down</source>
         <translation>В&amp;низ</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="179"/>
+        <location filename="book_ui.py" line="195"/>
         <source>Shift files down</source>
         <translation>Переместить файлы вниз</translation>
     </message>
     <message>
-        <location filename="book_ui.py" line="180"/>
+        <location filename="book_ui.py" line="196"/>
         <source>Ctrl+PgDown</source>
         <translation>Ctrl+PgDn</translation>
     </message>
     <message>
         <location filename="book_ui.py" line="157"/>
         <source>Download from</source>
-        <translation type="obsolete">Скачать с сайта</translation>
+        <translation type="unfinished">Скачать с сайта</translation>
+    </message>
+    <message>
+        <location filename="book_ui.py" line="197"/>
+        <source>readmanga.ru</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="book_ui.py" line="198"/>
+        <source>adultmanga.ru</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>
