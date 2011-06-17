@@ -71,7 +71,7 @@ class DialogConvert(QtGui.QProgressDialog):
         for index in xrange(0,len(self.book.images)):
             if self.book.overwrite or not os.path.isfile(target%index):
                 source = unicode(self.book.images[index])
-                ct = ConvertThread(source,target,index, str(self.book.device), self.book.imageFlags)
+                ct = ConvertThread(source,target,index, unicode(self.book.device), self.book.imageFlags)
                 QtCore.QObject.connect(ct.emitter,QtCore.SIGNAL("targetSaved(QStringList)"),self.postprocessImages)
                 QtCore.QObject.connect(ct.emitter,QtCore.SIGNAL("threadError(QString)"),self.threadError)
                 self.threadPool.start(ct)
@@ -80,7 +80,7 @@ class DialogConvert(QtGui.QProgressDialog):
         result = QtGui.QMessageBox.critical(
                 self,
                 'Mangle',
-                str(error),
+                unicode(error),
                 QtGui.QMessageBox.Abort | QtGui.QMessageBox.Ignore,
                 QtGui.QMessageBox.Ignore
             )
@@ -94,10 +94,10 @@ class DialogConvert(QtGui.QProgressDialog):
 
     def postprocessImages(self,images):
         self.setValue(self.value()+1)
-        self.setLabelText('Processed %s...' % os.path.split(str(images[0]))[1])
+        self.setLabelText('Processed %s...' % os.path.split(unicode(images[0]))[1])
         for page in images:
             if self.book.imageFlags & ImageFlags.Cbz:
-                self.packPage(str(page))        
+                self.packPage(unicode(page))        
         if self.value() == -1:
             self.allThreadsFinished()
 

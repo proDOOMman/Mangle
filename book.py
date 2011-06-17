@@ -139,9 +139,9 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
             if not ok:
                 return
             directory = QtGui.QFileDialog.getExistingDirectory(self,'Select directory to save manga',QtCore.QDir.tempPath())
-            if not os.path.isdir(str(directory)):
+            if not os.path.isdir(unicode(directory)):
                 return
-            self.d = Downloader(action.text(),str(name),str(directory))
+            self.d = Downloader(action.text(),unicode(name),unicode(directory))
             self.d.show()
             QtCore.QObject.connect(self.d.downloadThread,QtCore.SIGNAL("targetCompleted(QString)"),self.addImageFile)
             self.d.setWindowModality(QtCore.Qt.WindowModal)
@@ -313,7 +313,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         try:
             self.book.save(filename)
         except RuntimeError, error:
-            QtGui.QMessageBox.critical(self, 'Mangle', str(error))
+            QtGui.QMessageBox.critical(self, 'Mangle', unicode(error))
             return False
 
         return True
@@ -323,7 +323,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         try:
             self.book.load(filename)
         except RuntimeError, error:
-            QtGui.QMessageBox.critical(self, 'Mangle', str(error))
+            QtGui.QMessageBox.critical(self, 'Mangle', unicode(error))
         else:
             self.listWidgetFiles.clear()
             for image in self.book.images:

@@ -32,6 +32,6 @@ class ConvertThread(QtCore.QRunnable):
         try:
             targets = image.convertImage(self.source, self.target, self.index, self.device, self.imageFlags)
         except RuntimeError, error:
-            self.emitter.emit(QtCore.SIGNAL("threadError(QString)"),QtCore.QString(str(error)))
+            self.emitter.emit(QtCore.SIGNAL("threadError(QString)"),QtCore.QString(unicode(error)))
             return
         self.emitter.emit(QtCore.SIGNAL("targetSaved(QStringList)"),QtCore.QStringList(targets))
