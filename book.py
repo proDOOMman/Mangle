@@ -142,9 +142,9 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
             if not os.path.isdir(unicode(directory)):
                 return
             self.d = Downloader(action.text(),unicode(name),unicode(directory))
+            self.d.setWindowModality(QtCore.Qt.ApplicationModal)
             self.d.show()
             QtCore.QObject.connect(self.d.downloadThread,QtCore.SIGNAL("targetCompleted(QString)"),self.addImageFile)
-            self.d.setWindowModality(QtCore.Qt.WindowModal)
             self.d.download()
         except RuntimeError, error:
             QtGui.QMessageBox.warning(self, 'Mangle', error.message)
