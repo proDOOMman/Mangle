@@ -47,17 +47,18 @@ class DialogConvert(QtGui.QProgressDialog):
             
         if self.book.imageFlags & ImageFlags.Cbz:
             filename = os.path.join(os.path.join(unicode(self.directory), unicode(self.book.title)),unicode(self.book.title)+".cbz")
-            if self.book.overwrite and os.path.isfile(filename):
-                os.remove(filename)
+            if not self.book.overwrite and os.path.isfile(filename):
+                self.close()
+                return
             self.cbz = zipfile.ZipFile(filename, "w")
             
         try:
             base = os.path.join(directory, unicode(self.book.title))
             mangaSaveName = base + '.manga_save'
             if self.book.overwrite or not os.path.isfile(mangaSaveName):
-                mangaSave = open(base + '.manga_save', 'w')
+                mangaSave = open(mangaSaveName, 'w')
                 if self.book.imageFlags & ImageFlags.Cbz:
-                    saveData = u'LAST=00000.png' # for cbz format
+                    saveData = u'LAST=00000.png'
                 else:
                     saveData = u'LAST=/mnt/us/pictures/%s/%s' % (self.book.title, os.path.split(target)[1])
                 mangaSave.write(saveData.encode('utf-8'))

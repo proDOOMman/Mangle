@@ -3,6 +3,7 @@ all: \
 	ui/about_ui.py \
 	ui/options_ui.py \
 	ui/book_ui.py \
+	ui/downloader_ui.py \
 	locale
 
 ui/resources_rc.py: dev/res/resources.qrc
@@ -15,6 +16,9 @@ ui/options_ui.py: dev/ui/options.ui
 	pyuic4 $< -o $@
 
 ui/book_ui.py: dev/ui/book.ui
+	pyuic4 $< -o $@
+
+ui/downloader_ui.py: dev/ui/downloader.ui
 	pyuic4 $< -o $@
 
 locale:

@@ -13,12 +13,10 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
-from PyQt4 import QtGui, QtCore, QtXml
+from PyQt4 import QtCore
 
 import image
 from image import ImageFlags
-from options import DialogOptions
 
 class ConvertThread(QtCore.QRunnable):
     def __init__(self, src, trg, ind, dev, imgFlags):

@@ -19,6 +19,7 @@ import os
 from PyQt4 import QtGui, QtCore, QtXml
 
 import image
+from downloader import Downloader
 from image import ImageFlags
 from about import DialogAbout
 from options import DialogOptions
@@ -123,6 +124,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         self.connect(self.actionBookExport, QtCore.SIGNAL('triggered()'), self.onBookExport)
         self.connect(self.actionHelpAbout, QtCore.SIGNAL('triggered()'), self.onHelpAbout)
         self.connect(self.actionHelpHomepage, QtCore.SIGNAL('triggered()'), self.onHelpHomepage)
+        self.connect(self.menuDownload, QtCore.SIGNAL('triggered(QAction *)'),self.downloadManga)
         self.connect(self.listWidgetFiles, QtCore.SIGNAL('customContextMenuRequested(const QPoint&)'), self.onFilesContextMenu)
         self.connect(self.listWidgetFiles, QtCore.SIGNAL('itemDoubleClicked (QListWidgetItem *)'), self.onFilesDoubleClick)
         self.listWidgetFiles.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
@@ -131,6 +133,22 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         if filename != None:
             self.loadBook(filename)
 
+    def downloadManga(self, action):
+        try:
+            name, ok = QtGui.QInputDialog.getText(self,'Manga downloading','Please, enter manga name:')
+            if not ok:
+                return
+            directory = QtGui.QFileDialog.getExistingDirectory(self,'Select directory to save manga',QtCore.QDir.tempPath())
+            if not os.path.isdir(str(directory)):
+                return
+            self.d = Downloader(action.text(),str(name),str(directory))
+            self.d.show()
+            QtCore.QObject.connect(self.d.downloadThread,QtCore.SIGNAL("targetCompleted(QString)"),self.addImageFile)
+            self.d.setWindowModality(QtCore.Qt.WindowModal)
+            self.d.download()
+        except RuntimeError, error:
+            QtGui.QMessageBox.warning(self, 'Mangle', error.message)
+            return
 
     def closeEvent(self, event):
         if not self.saveIfNeeded():
@@ -346,6 +364,10 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
             self.book.images.remove(item.text())
             self.book.modified = True
 
+    def addImageFile(self, filename):
+        self.listWidgetFiles.addItem(filename)
+        self.book.images.append(filename)
+        self.book.modified = True
 
     def addImageFiles(self, filenames):
         filenamesListed = []
@@ -354,10 +376,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
 
         for filename in filenames:
             if filename not in filenamesListed:
-                filename = QtCore.QString(filename)
-                self.listWidgetFiles.addItem(filename)
-                self.book.images.append(filename)
-                self.book.modified = True
+                self.addImageFile(QtCore.QString(filename))
 
 
     def addImageDirs(self, directories):

@@ -33,7 +33,7 @@
      <x>0</x>
      <y>0</y>
      <width>800</width>
-     <height>25</height>
+     <height>22</height>
     </rect>
    </property>
    <widget class="QMenu" name="menu_File">
@@ -65,6 +65,13 @@
      <addaction name="actionBookShiftUp"/>
      <addaction name="actionBookShiftDown"/>
     </widget>
+    <widget class="QMenu" name="menuDownload">
+     <property name="title">
+      <string>Download from</string>
+     </property>
+     <addaction name="actionReadmanga"/>
+     <addaction name="actionAdultmanga"/>
+    </widget>
     <addaction name="actionBookOptions"/>
     <addaction name="separator"/>
     <addaction name="menu_Add"/>
@@ -72,6 +79,8 @@
     <addaction name="menu_Shift"/>
     <addaction name="separator"/>
     <addaction name="actionBookExport"/>
+    <addaction name="separator"/>
+    <addaction name="menuDownload"/>
    </widget>
    <widget class="QMenu" name="menu_Help">
     <property name="title">
@@ -279,6 +288,16 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+PgDown</string>
+   </property>
+  </action>
+  <action name="actionReadmanga">
+   <property name="text">
+    <string>readmanga.ru</string>
+   </property>
+  </action>
+  <action name="actionAdultmanga">
+   <property name="text">
+    <string>adultmanga.ru</string>
    </property>
   </action>
  </widget>
