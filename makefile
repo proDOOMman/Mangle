@@ -1,4 +1,5 @@
 all: \
+	clean \
 	ui/resources_rc.py \
 	ui/about_ui.py \
 	ui/options_ui.py \
@@ -25,3 +26,7 @@ locale:
 	LANGUAGE="ru_RU"
 	pylupdate4 ./*.py ./ui/*.py -ts mangle_${LANGUAGE}.ts
 	lrelease mangle_${LANGUAGE}.ts
+
+clean:
+	rm ./ui/*
+	touch ./ui/__init__.py

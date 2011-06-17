@@ -18,7 +18,6 @@
 import os
 from PyQt4 import QtGui, QtCore
 
-import image
 from convertthread import ConvertThread
 from image import ImageFlags
 import zipfile

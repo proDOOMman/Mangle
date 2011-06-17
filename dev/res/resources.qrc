@@ -10,5 +10,6 @@
     <file>img/save_file.png</file>
     <file>img/shift_down.png</file>
     <file>img/shift_up.png</file>
+    <file>preview/page.png</file>
   </qresource>
 </RCC>

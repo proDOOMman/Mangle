@@ -16,10 +16,11 @@
 
 
 from PyQt4 import QtGui, QtCore
+from PIL import Image, ImageDraw, ImageStat
 
-from image import ImageFlags
+from image import ImageFlags, KindleData
 from ui.options_ui import Ui_DialogOptions
-
+import image as Img
 
 class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
     def __init__(self, parent, book):
@@ -28,7 +29,64 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
         self.setupUi(self)
         self.connect(self, QtCore.SIGNAL('accepted()'), self.onAccept)
         self.moveOptionsToDialog()
+        self.updatePreview()
 
+
+    def updatePreview(self):
+        self.prevPage1.setPixmap(QtGui.QPixmap())
+        self.prevPage2.setPixmap(QtGui.QPixmap())
+        device = str(self.comboBoxDevice.itemText(self.comboBoxDevice.currentIndex()))
+        try:
+            size, palette = KindleData.Profiles[device]
+        except KeyError:
+            raise RuntimeError('Unexpected output device %s' % device)
+        try:
+            qt_picture = self.prevOrig.pixmap().toImage().convertToFormat(QtGui.QImage.Format_ARGB32)
+            image = Image.fromstring("RGBA", (qt_picture.width(),qt_picture.height()), qt_picture.bits().asstring(qt_picture.byteCount()))
+        except BaseException, error:
+            print str(error)
+            raise RuntimeError('Cannot read image')
+        image = Img.formatImage(image)
+        count = 1
+        split = False
+        widthDev, heightDev = size
+        widthImg, heightImg = image.size
+        flags = self.getImageFlags()
+        if flags & ImageFlags.Split and (widthImg > heightImg) != (widthDev > heightDev):
+            count += 1
+            split = True
+        boxlist = [(0,0,widthImg/2,heightImg),(widthImg/2,0,widthImg,heightImg)]
+        targets = []
+        while count>0:
+            if split:
+                if flags & ImageFlags.Reverse:
+                    tmp_image = image.crop(boxlist[(count+1)%2])
+                else:
+                    tmp_image = image.crop(boxlist[count%2])
+            else:
+                tmp_image = image
+            if flags & ImageFlags.Crop:
+                tmp_image = Img.cropWhiteSpace(tmp_image)
+            if flags & ImageFlags.Orient:
+                tmp_image = Img.orientImage(tmp_image, size)
+            if flags & ImageFlags.Resize:
+                tmp_image = Img.resizeImage(tmp_image, size)
+            if flags & ImageFlags.Frame:
+                tmp_image = Img.frameImage(tmp_image, tuple(palette[:3]), tuple(palette[-3:]), size)
+            if flags & ImageFlags.Quantize:
+                tmp_image = Img.quantizeImage(tmp_image, palette)
+            count -= 1
+            try:
+                PILstring = tmp_image.convert("RGB").tostring("jpeg", "RGB")
+                qt_image = QtGui.QImage()
+                qt_image.loadFromData(QtCore.QByteArray(PILstring))
+                qt_pix = QtGui.QPixmap.fromImage(qt_image)
+                if not (flags & ImageFlags.Split) or count == 1:
+                    self.prevPage1.setPixmap(qt_pix)
+                else:
+                    self.prevPage2.setPixmap(qt_pix)
+            except BaseException, error:
+                print str(error)
 
     def onAccept(self):
         self.moveDialogToOptions()
@@ -48,11 +106,7 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
         self.checkboxCrop.setChecked(QtCore.Qt.Checked if self.book.imageFlags & ImageFlags.Crop else QtCore.Qt.Unchecked)
 
 
-    def moveDialogToOptions(self):
-        title = self.lineEditTitle.text()
-        device = self.comboBoxDevice.itemText(self.comboBoxDevice.currentIndex())
-        overwrite = self.checkboxOverwrite.checkState() == QtCore.Qt.Checked
-
+    def getImageFlags(self):
         imageFlags = 0
         if self.checkboxOrient.checkState() == QtCore.Qt.Checked:
             imageFlags |= ImageFlags.Orient
@@ -70,6 +124,14 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
             imageFlags |= ImageFlags.Cbz
         if self.checkboxCrop.checkState() == QtCore.Qt.Checked:
             imageFlags |= ImageFlags.Crop
+        return imageFlags
+
+    def moveDialogToOptions(self):
+        title = self.lineEditTitle.text()
+        device = self.comboBoxDevice.itemText(self.comboBoxDevice.currentIndex())
+        overwrite = self.checkboxOverwrite.checkState() == QtCore.Qt.Checked
+
+        imageFlags = self.getImageFlags()
 
         modified = (
             self.book.title != title or

@@ -57,99 +57,119 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DialogOptions</name>
     <message>
-        <location filename="options_ui.py" line="94"/>
+        <location filename="options_ui.py" line="148"/>
         <source>Options</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="95"/>
+        <location filename="options_ui.py" line="149"/>
         <source>Book</source>
         <translation>Книга</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="96"/>
+        <location filename="options_ui.py" line="150"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="97"/>
+        <location filename="options_ui.py" line="151"/>
         <source>Export</source>
         <translation>Экспорт</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="98"/>
+        <location filename="options_ui.py" line="152"/>
         <source>Device</source>
         <translation>Устройство</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="99"/>
+        <location filename="options_ui.py" line="153"/>
         <source>Kindle 1</source>
         <translation>Kindle 1</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="100"/>
+        <location filename="options_ui.py" line="154"/>
         <source>Kindle 2</source>
         <translation>Kindle 2</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="101"/>
+        <location filename="options_ui.py" line="155"/>
         <source>Kindle 3</source>
         <translation>Kindle 3</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="102"/>
+        <location filename="options_ui.py" line="156"/>
         <source>Kindle DX</source>
         <translation>Kindle DX</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="103"/>
+        <location filename="options_ui.py" line="157"/>
         <source>Kindle DXG</source>
         <translation>Kindle DXG</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="104"/>
+        <location filename="options_ui.py" line="158"/>
         <source>Overwrite existing files</source>
         <translation>Перезаписывать файлы</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="105"/>
+        <location filename="options_ui.py" line="159"/>
         <source>Orient images to match aspect ratio</source>
         <translation>Автоматически поворачивать страницы</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="106"/>
+        <location filename="options_ui.py" line="160"/>
         <source>Resize images to center on screen</source>
         <translation>Масштабировать страницы по размеру экрана</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="107"/>
+        <location filename="options_ui.py" line="161"/>
         <source>Dither images to match device palette</source>
         <translation>Сократить палитру цветов</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="108"/>
+        <location filename="options_ui.py" line="162"/>
         <source>Draw frame around images</source>
         <translation>Рисовать рамку по контуру страницы</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="109"/>
+        <location filename="options_ui.py" line="163"/>
         <source>Split images to match aspect ratio</source>
-        <translation>Разрезать страницу на две части, если она в альбомном формате</translation>
+        <translation>Разрезать альбомные страницы на две части</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="110"/>
+        <location filename="options_ui.py" line="164"/>
         <source>Reverse split order</source>
         <translation>Изменить порядок страниц после разрезания</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="111"/>
+        <location filename="options_ui.py" line="165"/>
         <source>Pack into CBZ file</source>
         <translation>Сохранять в CBZ формат</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="112"/>
+        <location filename="options_ui.py" line="166"/>
         <source>Crop white space</source>
         <translation>Обрезать поля</translation>
+    </message>
+    <message>
+        <location filename="options_ui.py" line="167"/>
+        <source>Preview</source>
+        <translation>Предпросмотр</translation>
+    </message>
+    <message>
+        <location filename="options_ui.py" line="168"/>
+        <source>Before</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="options_ui.py" line="169"/>
+        <source>After: page 1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="options_ui.py" line="170"/>
+        <source>After: page 2</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -403,17 +423,17 @@ p, li { white-space: pre-wrap; }
     <message>
         <location filename="book_ui.py" line="157"/>
         <source>Download from</source>
-        <translation type="unfinished">Скачать с сайта</translation>
+        <translation>Скачать с сайта</translation>
     </message>
     <message>
         <location filename="book_ui.py" line="197"/>
         <source>readmanga.ru</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
     <message>
         <location filename="book_ui.py" line="198"/>
         <source>adultmanga.ru</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 </TS>

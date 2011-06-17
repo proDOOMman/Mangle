@@ -18,7 +18,6 @@
 import os
 from PyQt4 import QtGui, QtCore, QtXml
 
-import image
 from downloader import Downloader
 from image import ImageFlags
 from about import DialogAbout
@@ -326,8 +325,8 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
             QtGui.QMessageBox.critical(self, 'Mangle', unicode(error))
         else:
             self.listWidgetFiles.clear()
-            for image in self.book.images:
-                self.listWidgetFiles.addItem(image)
+            for pic in self.book.images:
+                self.listWidgetFiles.addItem(pic)
 
 
     def shiftImageFile(self, row, delta):
@@ -388,7 +387,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
                     path = os.path.join(root, filename)
                     if self.isImageFile(path):
                         filenames.append(path)
-	filenames.sort()
+        filenames.sort()
         self.addImageFiles(filenames)
 
 

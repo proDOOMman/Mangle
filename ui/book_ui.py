@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'dev/ui/book.ui'
 #
-# Created: Fri Jun 17 17:40:59 2011
+# Created: Fri Jun 17 23:09:27 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
