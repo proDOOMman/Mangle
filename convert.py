@@ -98,8 +98,8 @@ class DialogConvert(QtGui.QProgressDialog):
         for page in images:
             if self.book.imageFlags & ImageFlags.Cbz:
                 self.packPage(str(page))        
-            if self.value() == -1:
-                self.allThreadsFinished()
+        if self.value() == -1:
+            self.allThreadsFinished()
 
     def allThreadsFinished(self):
         print "Converting finished!"
