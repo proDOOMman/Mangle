@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS><TS version="1.1" language="ru_RU">
+<!DOCTYPE TS>
+<TS version="2.0" language="ru_RU">
 <context>
     <name>DialogAbout</name>
     <message>
@@ -57,124 +58,124 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DialogOptions</name>
     <message>
-        <location filename="options_ui.py" line="173"/>
+        <location filename="options_ui.py" line="170"/>
         <source>Options</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="174"/>
+        <location filename="options_ui.py" line="171"/>
         <source>Book</source>
         <translation>Книга</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="175"/>
+        <location filename="options_ui.py" line="172"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="176"/>
+        <location filename="options_ui.py" line="173"/>
         <source>Export</source>
         <translation>Экспорт</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="177"/>
+        <location filename="options_ui.py" line="174"/>
         <source>Device</source>
         <translation>Устройство</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="178"/>
+        <location filename="options_ui.py" line="175"/>
         <source>Kindle 1</source>
         <translation>Kindle 1</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="179"/>
+        <location filename="options_ui.py" line="176"/>
         <source>Kindle 2</source>
         <translation>Kindle 2</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="180"/>
+        <location filename="options_ui.py" line="177"/>
         <source>Kindle 3</source>
         <translation>Kindle 3</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="181"/>
+        <location filename="options_ui.py" line="178"/>
         <source>Kindle DX</source>
         <translation>Kindle DX</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="182"/>
+        <location filename="options_ui.py" line="179"/>
         <source>Kindle DXG</source>
         <translation>Kindle DXG</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="183"/>
+        <location filename="options_ui.py" line="180"/>
         <source>Overwrite existing files</source>
         <translation>Перезаписывать файлы</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="184"/>
+        <location filename="options_ui.py" line="181"/>
         <source>Orient images to match aspect ratio</source>
         <translation>Автоматически поворачивать страницы</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="185"/>
+        <location filename="options_ui.py" line="182"/>
         <source>Resize images to center on screen</source>
         <translation>Масштабировать страницы по размеру экрана</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="186"/>
+        <location filename="options_ui.py" line="183"/>
         <source>Dither images to match device palette</source>
         <translation>Сократить палитру цветов</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="187"/>
+        <location filename="options_ui.py" line="184"/>
         <source>Draw frame around images</source>
         <translation>Рисовать рамку по контуру страницы</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="188"/>
+        <location filename="options_ui.py" line="185"/>
         <source>Split images to match aspect ratio</source>
         <translation>Разрезать альбомные страницы на две части</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="189"/>
+        <location filename="options_ui.py" line="186"/>
         <source>Reverse split order</source>
         <translation>Изменить порядок страниц после разрезания</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="190"/>
+        <location filename="options_ui.py" line="187"/>
         <source>Pack into CBZ file</source>
         <translation>Сохранять в CBZ формат</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="191"/>
+        <location filename="options_ui.py" line="188"/>
         <source>Crop white space</source>
         <translation>Обрезать поля</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="192"/>
+        <location filename="options_ui.py" line="189"/>
         <source>Preview</source>
         <translation>Предпросмотр</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="193"/>
+        <location filename="options_ui.py" line="190"/>
         <source>Before</source>
-        <translation type="unfinished"></translation>
+        <translation>Оригинал</translation>
+    </message>
+    <message>
+        <location filename="options_ui.py" line="191"/>
+        <source>After: page 1</source>
+        <translation>Результат - страница 1</translation>
+    </message>
+    <message>
+        <location filename="options_ui.py" line="192"/>
+        <source>After: page 2</source>
+        <translation>Результат - страница 2</translation>
     </message>
     <message>
         <location filename="options_ui.py" line="194"/>
-        <source>After: page 1</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="options_ui.py" line="195"/>
-        <source>After: page 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="options_ui.py" line="197"/>
         <source>...</source>
-        <translation type="unfinished"></translation>
+        <translation></translation>
     </message>
 </context>
 <context>

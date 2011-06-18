@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'dev/ui/options.ui'
 #
-# Created: Sat Jun 18 10:40:48 2011
+# Created: Sat Jun 18 13:43:40 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -98,7 +98,7 @@ class Ui_DialogOptions(object):
         self.groupBox_3.setObjectName(_fromUtf8("groupBox_3"))
         self.gridLayout_2 = QtGui.QGridLayout(self.groupBox_3)
         self.gridLayout_2.setObjectName(_fromUtf8("gridLayout_2"))
-        self.prevOrig = QtGui.QLabel(self.groupBox_3)
+        self.prevOrig = ImageContainer(self.groupBox_3)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Ignored, QtGui.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -108,11 +108,10 @@ class Ui_DialogOptions(object):
         self.prevOrig.setFrameShape(QtGui.QFrame.StyledPanel)
         self.prevOrig.setText(_fromUtf8(""))
         self.prevOrig.setPixmap(QtGui.QPixmap(_fromUtf8(":/img/preview/page.png")))
-        self.prevOrig.setScaledContents(True)
         self.prevOrig.setAlignment(QtCore.Qt.AlignCenter)
         self.prevOrig.setObjectName(_fromUtf8("prevOrig"))
         self.gridLayout_2.addWidget(self.prevOrig, 0, 0, 1, 2)
-        self.prevPage1 = QtGui.QLabel(self.groupBox_3)
+        self.prevPage1 = ImageContainer(self.groupBox_3)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Ignored, QtGui.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -120,11 +119,10 @@ class Ui_DialogOptions(object):
         self.prevPage1.setSizePolicy(sizePolicy)
         self.prevPage1.setFrameShape(QtGui.QFrame.StyledPanel)
         self.prevPage1.setText(_fromUtf8(""))
-        self.prevPage1.setScaledContents(True)
         self.prevPage1.setAlignment(QtCore.Qt.AlignCenter)
         self.prevPage1.setObjectName(_fromUtf8("prevPage1"))
         self.gridLayout_2.addWidget(self.prevPage1, 1, 0, 1, 1)
-        self.prevPage2 = QtGui.QLabel(self.groupBox_3)
+        self.prevPage2 = ImageContainer(self.groupBox_3)
         sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Ignored, QtGui.QSizePolicy.Ignored)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -132,7 +130,6 @@ class Ui_DialogOptions(object):
         self.prevPage2.setSizePolicy(sizePolicy)
         self.prevPage2.setFrameShape(QtGui.QFrame.StyledPanel)
         self.prevPage2.setText(_fromUtf8(""))
-        self.prevPage2.setScaledContents(True)
         self.prevPage2.setAlignment(QtCore.Qt.AlignCenter)
         self.prevPage2.setObjectName(_fromUtf8("prevPage2"))
         self.gridLayout_2.addWidget(self.prevPage2, 1, 1, 1, 1)
@@ -196,4 +193,5 @@ class Ui_DialogOptions(object):
         self.prevPreviewButton.setText(QtGui.QApplication.translate("DialogOptions", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.nextPreviewButton.setText(QtGui.QApplication.translate("DialogOptions", "...", None, QtGui.QApplication.UnicodeUTF8))
 
+from imagecontainer import ImageContainer
 import resources_rc

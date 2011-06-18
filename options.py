@@ -16,7 +16,7 @@
 
 
 from PyQt4 import QtGui, QtCore
-from PIL import Image, ImageDraw, ImageStat
+from PIL import Image
 
 from image import ImageFlags, KindleData
 from ui.options_ui import Ui_DialogOptions
@@ -73,7 +73,7 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
         except KeyError:
             raise RuntimeError('Unexpected output device %s' % device)
         try:
-            qt_picture = self.prevOrig.pixmap().toImage().convertToFormat(QtGui.QImage.Format_ARGB32)
+            qt_picture = self.prevOrig.originalPixmap().toImage().convertToFormat(QtGui.QImage.Format_ARGB32)
             image = Image.fromstring("RGBA", (qt_picture.width(),qt_picture.height()), qt_picture.bits().asstring(qt_picture.byteCount()))
         except BaseException, error:
             print str(error)
@@ -88,7 +88,6 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
             count += 1
             split = True
         boxlist = [(0,0,widthImg/2,heightImg),(widthImg/2,0,widthImg,heightImg)]
-        targets = []
         while count>0:
             if split:
                 if flags & ImageFlags.Reverse:
@@ -178,9 +177,3 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
             self.book.device = device
             self.book.overwrite = overwrite
             self.book.imageFlags = imageFlags
-
-class ImageContainer(QtGui.QLabel):
-    def __init__(self):
-        QtGui.QLabel.__init__(self)
-    def heightForWidth(w):
-        return self.pixmap().scaledToWidth(20).height()
