@@ -53,12 +53,15 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
         else:
             imagename = unicode(self.book.images[index])
             if imagename.startswith("ZIP://") and " NAME://" in imagename:
-                archivename, filename = imagename.split(" NAME://")
-                archivename = archivename[6:]
-                archive = zipfile.ZipFile(archivename)
-                qt_image = QtGui.QImage()
-                qt_image.loadFromData(archive.read(filename))
-                qt_pix = QtGui.QPixmap.fromImage(qt_image)
+                try:
+                    archivename, filename = imagename.split(" NAME://")
+                    archivename = archivename[6:]
+                    archive = zipfile.ZipFile(archivename)
+                    qt_image = QtGui.QImage()
+                    qt_image.loadFromData(archive.read(filename))
+                    qt_pix = QtGui.QPixmap.fromImage(qt_image)
+                except RuntimeError:
+                    self.prevOrig.setPixmap(QtGui.QPixmap())
                 self.prevOrig.setPixmap(qt_pix)
             else:
                 self.prevOrig.setPixmap(QtGui.QPixmap(self.book.images[index]))

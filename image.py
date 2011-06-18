@@ -191,12 +191,15 @@ def convertImage(source, target, index, device, flags):
 
     try:
         if source.startswith("ZIP://") and " NAME://" in source:
-            archivename, filename = source.split(" NAME://")
-            archivename = archivename[6:]
-            image_io = ImageFile.Parser()
-            archive = zipfile.ZipFile(archivename)
-            image_io.feed(archive.read(filename))
-            image = image_io.close()
+            try:
+                archivename, filename = source.split(" NAME://")
+                archivename = archivename[6:]
+                image_io = ImageFile.Parser()
+                archive = zipfile.ZipFile(archivename)
+                image_io.feed(archive.read(filename))
+                image = image_io.close()
+            except RuntimeError:
+                raise RuntimeError('Cannot read image file %s' % source)
         else:
             image = Image.open(source)
     except IOError:
