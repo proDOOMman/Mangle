@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'dev/ui/options.ui'
 #
-# Created: Fri Jun 17 23:09:27 2011
+# Created: Sat Jun 18 10:40:48 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -137,6 +137,31 @@ class Ui_DialogOptions(object):
         self.prevPage2.setObjectName(_fromUtf8("prevPage2"))
         self.gridLayout_2.addWidget(self.prevPage2, 1, 1, 1, 1)
         self.gridLayout.addWidget(self.groupBox_3, 1, 1, 2, 1)
+        self.horizontalLayout = QtGui.QHBoxLayout()
+        self.horizontalLayout.setObjectName(_fromUtf8("horizontalLayout"))
+        spacerItem1 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem1)
+        self.prevPreviewButton = QtGui.QToolButton(DialogOptions)
+        icon = QtGui.QIcon()
+        icon.addPixmap(QtGui.QPixmap(_fromUtf8(":/img/img/go-previous.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.prevPreviewButton.setIcon(icon)
+        self.prevPreviewButton.setObjectName(_fromUtf8("prevPreviewButton"))
+        self.horizontalLayout.addWidget(self.prevPreviewButton)
+        self.previewSpinBox = QtGui.QSpinBox(DialogOptions)
+        self.previewSpinBox.setButtonSymbols(QtGui.QAbstractSpinBox.NoButtons)
+        self.previewSpinBox.setMinimum(-1)
+        self.previewSpinBox.setProperty(_fromUtf8("value"), -1)
+        self.previewSpinBox.setObjectName(_fromUtf8("previewSpinBox"))
+        self.horizontalLayout.addWidget(self.previewSpinBox)
+        self.nextPreviewButton = QtGui.QToolButton(DialogOptions)
+        icon1 = QtGui.QIcon()
+        icon1.addPixmap(QtGui.QPixmap(_fromUtf8(":/img/img/go-next.png")), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.nextPreviewButton.setIcon(icon1)
+        self.nextPreviewButton.setObjectName(_fromUtf8("nextPreviewButton"))
+        self.horizontalLayout.addWidget(self.nextPreviewButton)
+        spacerItem2 = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem2)
+        self.gridLayout.addLayout(self.horizontalLayout, 3, 1, 1, 1)
         self.gridLayout.setColumnStretch(1, 1)
 
         self.retranslateUi(DialogOptions)
@@ -168,5 +193,7 @@ class Ui_DialogOptions(object):
         self.prevOrig.setToolTip(QtGui.QApplication.translate("DialogOptions", "Before", None, QtGui.QApplication.UnicodeUTF8))
         self.prevPage1.setToolTip(QtGui.QApplication.translate("DialogOptions", "After: page 1", None, QtGui.QApplication.UnicodeUTF8))
         self.prevPage2.setToolTip(QtGui.QApplication.translate("DialogOptions", "After: page 2", None, QtGui.QApplication.UnicodeUTF8))
+        self.prevPreviewButton.setText(QtGui.QApplication.translate("DialogOptions", "...", None, QtGui.QApplication.UnicodeUTF8))
+        self.nextPreviewButton.setText(QtGui.QApplication.translate("DialogOptions", "...", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

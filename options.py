@@ -30,6 +30,38 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
         self.connect(self, QtCore.SIGNAL('accepted()'), self.onAccept)
         self.moveOptionsToDialog()
         self.updatePreview()
+        QtCore.QObject.connect(self.comboBoxDevice,QtCore.SIGNAL('currentIndexChanged(int)'),self.updatePreview)
+        #QtCore.QObject.connect(self.checkboxCbz,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
+        QtCore.QObject.connect(self.checkboxCrop,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
+        QtCore.QObject.connect(self.checkboxFrame,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
+        QtCore.QObject.connect(self.checkboxOrient,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
+        #QtCore.QObject.connect(self.checkboxOverwrite,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
+        QtCore.QObject.connect(self.checkboxQuantize,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
+        QtCore.QObject.connect(self.checkboxResize,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
+        QtCore.QObject.connect(self.checkboxReverse,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
+        QtCore.QObject.connect(self.checkboxSplit,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
+        QtCore.QObject.connect(self.prevPreviewButton,QtCore.SIGNAL('clicked()'),self.prevImage)
+        QtCore.QObject.connect(self.nextPreviewButton,QtCore.SIGNAL('clicked()'),self.nextImage)
+        QtCore.QObject.connect(self.previewSpinBox,QtCore.SIGNAL('valueChanged(int)'),self.changeImage)
+        self.previewSpinBox.setMaximum(len(self.book.images)-1)
+        #TODO: change preview pic
+        #TODO: preview pics popup
+
+
+    def changeImage(self, index):
+        if index == -1:
+            self.prevOrig.setPixmap(QtGui.QPixmap(":/img/preview/page.png"))
+        else:
+            self.prevOrig.setPixmap(QtGui.QPixmap(self.book.images[index]))
+        self.updatePreview()
+
+
+    def prevImage(self):
+        self.previewSpinBox.setValue(self.previewSpinBox.value()-1)
+
+
+    def nextImage(self):
+        self.previewSpinBox.setValue(self.previewSpinBox.value()+1)
 
 
     def updatePreview(self):
@@ -146,3 +178,9 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
             self.book.device = device
             self.book.overwrite = overwrite
             self.book.imageFlags = imageFlags
+
+class ImageContainer(QtGui.QLabel):
+    def __init__(self):
+        QtGui.QLabel.__init__(self)
+    def heightForWidth(w):
+        return self.pixmap().scaledToWidth(20).height()
