@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'dev/ui/options.ui'
 #
-# Created: Sat Jun 18 13:43:40 2011
+# Created: Sat Jun 18 20:54:23 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -82,6 +82,18 @@ class Ui_DialogOptions(object):
         self.checkboxCrop = QtGui.QCheckBox(self.groupBox_2)
         self.checkboxCrop.setObjectName(_fromUtf8("checkboxCrop"))
         self.verticalLayout_2.addWidget(self.checkboxCrop)
+        self.horizontalLayout_2 = QtGui.QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(_fromUtf8("horizontalLayout_2"))
+        self.label_3 = QtGui.QLabel(self.groupBox_2)
+        self.label_3.setObjectName(_fromUtf8("label_3"))
+        self.horizontalLayout_2.addWidget(self.label_3)
+        self.thresholdSpinBox = QtGui.QDoubleSpinBox(self.groupBox_2)
+        self.thresholdSpinBox.setDecimals(1)
+        self.thresholdSpinBox.setMaximum(999.0)
+        self.thresholdSpinBox.setProperty(_fromUtf8("value"), 5.0)
+        self.thresholdSpinBox.setObjectName(_fromUtf8("thresholdSpinBox"))
+        self.horizontalLayout_2.addWidget(self.thresholdSpinBox)
+        self.verticalLayout_2.addLayout(self.horizontalLayout_2)
         spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
         self.verticalLayout_2.addItem(spacerItem)
         self.gridLayout.addWidget(self.groupBox_2, 1, 0, 1, 1)
@@ -186,6 +198,7 @@ class Ui_DialogOptions(object):
         self.checkboxReverse.setText(QtGui.QApplication.translate("DialogOptions", "Reverse split order", None, QtGui.QApplication.UnicodeUTF8))
         self.checkboxCbz.setText(QtGui.QApplication.translate("DialogOptions", "Pack into CBZ file", None, QtGui.QApplication.UnicodeUTF8))
         self.checkboxCrop.setText(QtGui.QApplication.translate("DialogOptions", "Crop white space", None, QtGui.QApplication.UnicodeUTF8))
+        self.label_3.setText(QtGui.QApplication.translate("DialogOptions", "Crop threshold:", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_3.setTitle(QtGui.QApplication.translate("DialogOptions", "Preview", None, QtGui.QApplication.UnicodeUTF8))
         self.prevOrig.setToolTip(QtGui.QApplication.translate("DialogOptions", "Before", None, QtGui.QApplication.UnicodeUTF8))
         self.prevPage1.setToolTip(QtGui.QApplication.translate("DialogOptions", "After: page 1", None, QtGui.QApplication.UnicodeUTF8))

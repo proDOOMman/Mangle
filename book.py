@@ -30,6 +30,7 @@ class Book:
     DefaultDevice = 'Kindle 3'
     DefaultOverwrite = True
     DefaultImageFlags = ImageFlags.Orient | ImageFlags.Resize | ImageFlags.Quantize | ImageFlags.Split | ImageFlags.Cbz | ImageFlags.Crop
+    DefaultCropThreshold = 5.0
 
 
     def __init__(self):
@@ -40,6 +41,7 @@ class Book:
         self.device = Book.DefaultDevice
         self.overwrite = Book.DefaultOverwrite
         self.imageFlags = Book.DefaultImageFlags
+        self.cropThreshold = Book.DefaultCropThreshold
 
 
     def save(self, filename):
@@ -52,6 +54,7 @@ class Book:
         root.setAttribute('overwrite', 'true' if self.overwrite else 'false')
         root.setAttribute('device', self.device)
         root.setAttribute('imageFlags', self.imageFlags)
+        root.setAttribute('cropThreshold', self.cropThreshold)
 
         for filenameImg in self.images:
             itemImg = document.createElement('image')
@@ -89,6 +92,7 @@ class Book:
             raise RuntimeError('Unexpected book format in file %s' % filename)
 
         self.title = root.attribute('title', 'Untitled')
+        self.cropThreshold = root.attribute('cropThreshold', "5.0").toDouble()[0]
         self.overwrite = root.attribute('overwrite', 'true' if Book.DefaultOverwrite else 'false') == 'true'
         self.device = root.attribute('device', Book.DefaultDevice)
         self.imageFlags = int(root.attribute('imageFlags', str(Book.DefaultImageFlags)))

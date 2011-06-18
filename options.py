@@ -40,6 +40,7 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
         QtCore.QObject.connect(self.checkboxResize,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
         QtCore.QObject.connect(self.checkboxReverse,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
         QtCore.QObject.connect(self.checkboxSplit,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
+        QtCore.QObject.connect(self.thresholdSpinBox,QtCore.SIGNAL('valueChanged(double)'),self.updatePreview)
         QtCore.QObject.connect(self.prevPreviewButton,QtCore.SIGNAL('clicked()'),self.prevImage)
         QtCore.QObject.connect(self.nextPreviewButton,QtCore.SIGNAL('clicked()'),self.nextImage)
         QtCore.QObject.connect(self.previewSpinBox,QtCore.SIGNAL('valueChanged(int)'),self.changeImage)
@@ -109,7 +110,7 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
             else:
                 tmp_image = image
             if flags & ImageFlags.Crop:
-                tmp_image = Img.cropWhiteSpace(tmp_image)
+                tmp_image = Img.cropWhiteSpace(tmp_image,self.thresholdSpinBox.value())
             if flags & ImageFlags.Orient:
                 tmp_image = Img.orientImage(tmp_image, size)
             if flags & ImageFlags.Resize:
@@ -147,6 +148,7 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
         self.checkboxReverse.setChecked(QtCore.Qt.Checked if self.book.imageFlags & ImageFlags.Reverse else QtCore.Qt.Unchecked)
         self.checkboxCbz.setChecked(QtCore.Qt.Checked if self.book.imageFlags & ImageFlags.Cbz else QtCore.Qt.Unchecked)
         self.checkboxCrop.setChecked(QtCore.Qt.Checked if self.book.imageFlags & ImageFlags.Crop else QtCore.Qt.Unchecked)
+        self.thresholdSpinBox.setValue(self.book.cropThreshold)
 
 
     def getImageFlags(self):
@@ -173,6 +175,7 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
         title = self.lineEditTitle.text()
         device = self.comboBoxDevice.itemText(self.comboBoxDevice.currentIndex())
         overwrite = self.checkboxOverwrite.checkState() == QtCore.Qt.Checked
+        cropThreshold = self.thresholdSpinBox.value()
 
         imageFlags = self.getImageFlags()
 
@@ -180,7 +183,8 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
             self.book.title != title or
             self.book.device != device or
             self.book.overwrite != overwrite or
-            self.book.imageFlags != imageFlags
+            self.book.imageFlags != imageFlags or
+            self.book.cropThreshold != cropThreshold
         )
 
         if modified:
@@ -189,3 +193,4 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
             self.book.device = device
             self.book.overwrite = overwrite
             self.book.imageFlags = imageFlags
+            self.book.cropThreshold = cropThreshold

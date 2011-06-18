@@ -19,7 +19,7 @@ import image
 from image import ImageFlags
 
 class ConvertThread(QtCore.QRunnable):
-    def __init__(self, src, trg, ind, dev, imgFlags):
+    def __init__(self, src, trg, ind, dev, imgFlags, crop_threshold):
         self.emitter = QtCore.QObject()
         QtCore.QRunnable.__init__(self)
         self.source = src
@@ -27,10 +27,11 @@ class ConvertThread(QtCore.QRunnable):
         self.index = ind*(int(bool(imgFlags & ImageFlags.Split))+1)
         self.device = dev
         self.imageFlags = imgFlags
+        self.threshold = crop_threshold
 
     def run(self):
         try:
-            targets = image.convertImage(self.source, self.target, self.index, self.device, self.imageFlags)
+            targets = image.convertImage(self.source, self.target, self.index, self.device, self.imageFlags, self.threshold)
         except RuntimeError, error:
             self.emitter.emit(QtCore.SIGNAL("threadError(QString)"),QtCore.QString(unicode(error)))
             return

@@ -58,124 +58,129 @@ p, li { white-space: pre-wrap; }
 <context>
     <name>DialogOptions</name>
     <message>
-        <location filename="options_ui.py" line="170"/>
+        <location filename="options_ui.py" line="182"/>
         <source>Options</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="171"/>
+        <location filename="options_ui.py" line="183"/>
         <source>Book</source>
         <translation>Книга</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="172"/>
+        <location filename="options_ui.py" line="184"/>
         <source>Title</source>
         <translation>Название</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="173"/>
+        <location filename="options_ui.py" line="185"/>
         <source>Export</source>
         <translation>Экспорт</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="174"/>
+        <location filename="options_ui.py" line="186"/>
         <source>Device</source>
         <translation>Устройство</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="175"/>
+        <location filename="options_ui.py" line="187"/>
         <source>Kindle 1</source>
         <translation>Kindle 1</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="176"/>
+        <location filename="options_ui.py" line="188"/>
         <source>Kindle 2</source>
         <translation>Kindle 2</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="177"/>
+        <location filename="options_ui.py" line="189"/>
         <source>Kindle 3</source>
         <translation>Kindle 3</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="178"/>
+        <location filename="options_ui.py" line="190"/>
         <source>Kindle DX</source>
         <translation>Kindle DX</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="179"/>
+        <location filename="options_ui.py" line="191"/>
         <source>Kindle DXG</source>
         <translation>Kindle DXG</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="180"/>
+        <location filename="options_ui.py" line="192"/>
         <source>Overwrite existing files</source>
         <translation>Перезаписывать файлы</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="181"/>
+        <location filename="options_ui.py" line="193"/>
         <source>Orient images to match aspect ratio</source>
         <translation>Автоматически поворачивать страницы</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="182"/>
+        <location filename="options_ui.py" line="194"/>
         <source>Resize images to center on screen</source>
         <translation>Масштабировать страницы по размеру экрана</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="183"/>
+        <location filename="options_ui.py" line="195"/>
         <source>Dither images to match device palette</source>
         <translation>Сократить палитру цветов</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="184"/>
+        <location filename="options_ui.py" line="196"/>
         <source>Draw frame around images</source>
         <translation>Рисовать рамку по контуру страницы</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="185"/>
+        <location filename="options_ui.py" line="197"/>
         <source>Split images to match aspect ratio</source>
         <translation>Разрезать альбомные страницы на две части</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="186"/>
+        <location filename="options_ui.py" line="198"/>
         <source>Reverse split order</source>
         <translation>Изменить порядок страниц после разрезания</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="187"/>
+        <location filename="options_ui.py" line="199"/>
         <source>Pack into CBZ file</source>
         <translation>Сохранять в CBZ формат</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="188"/>
+        <location filename="options_ui.py" line="200"/>
         <source>Crop white space</source>
         <translation>Обрезать поля</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="189"/>
+        <location filename="options_ui.py" line="202"/>
         <source>Preview</source>
         <translation>Предпросмотр</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="190"/>
+        <location filename="options_ui.py" line="203"/>
         <source>Before</source>
         <translation>Оригинал</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="191"/>
+        <location filename="options_ui.py" line="204"/>
         <source>After: page 1</source>
         <translation>Результат - страница 1</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="192"/>
+        <location filename="options_ui.py" line="205"/>
         <source>After: page 2</source>
         <translation>Результат - страница 2</translation>
     </message>
     <message>
-        <location filename="options_ui.py" line="194"/>
+        <location filename="options_ui.py" line="207"/>
         <source>...</source>
         <translation></translation>
+    </message>
+    <message>
+        <location filename="options_ui.py" line="201"/>
+        <source>Crop threshold:</source>
+        <translation>Порог обрезки:</translation>
     </message>
 </context>
 <context>

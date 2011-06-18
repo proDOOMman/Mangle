@@ -140,12 +140,11 @@ def frameImage(image, foreground, background, size):
 
     return imageBg
 
-def cropWhiteSpace(image):
+def cropWhiteSpace(image, threshold):
 #    print "Old size: %sx%s"%(image.size[0],image.size[1])
     widthImg, heightImg = image.size
     delta = 10
     diff = delta
-    threshold = 5
     # top
     while ImageStat.Stat(image.crop((0,0,widthImg,diff))).var[0] < threshold \
     and diff < heightImg:
@@ -183,7 +182,7 @@ def cropWhiteSpace(image):
 #    print "New size: %sx%s"%(image.size[0],image.size[1])
     return image
 
-def convertImage(source, target, index, device, flags):
+def convertImage(source, target, index, device, flags, crop_threshold):
     try:
         size, palette = KindleData.Profiles[device]
     except KeyError:
@@ -224,7 +223,7 @@ def convertImage(source, target, index, device, flags):
         else:
             tmp_image = image
         if flags & ImageFlags.Crop:
-            tmp_image = cropWhiteSpace(tmp_image)
+            tmp_image = cropWhiteSpace(tmp_image, crop_threshold)
         if flags & ImageFlags.Orient:
             tmp_image = orientImage(tmp_image, size)
         if flags & ImageFlags.Resize:

@@ -70,7 +70,7 @@ class DialogConvert(QtGui.QProgressDialog):
         for index in xrange(0,len(self.book.images)):
             if self.book.overwrite or not os.path.isfile(target%index):
                 source = unicode(self.book.images[index])
-                ct = ConvertThread(source,target,index, unicode(self.book.device), self.book.imageFlags)
+                ct = ConvertThread(source,target,index, unicode(self.book.device), self.book.imageFlags, self.book.cropThreshold)
                 QtCore.QObject.connect(ct.emitter,QtCore.SIGNAL("targetSaved(QStringList)"),self.postprocessImages)
                 QtCore.QObject.connect(ct.emitter,QtCore.SIGNAL("threadError(QString)"),self.threadError)
                 self.threadPool.start(ct)
