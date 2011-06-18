@@ -17,10 +17,10 @@
 
 from PyQt4 import QtGui, QtCore
 from PIL import Image
-
 from image import ImageFlags, KindleData
 from ui.options_ui import Ui_DialogOptions
 import image as Img
+import zipfile
 
 class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
     def __init__(self, parent, book):
@@ -44,7 +44,6 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
         QtCore.QObject.connect(self.nextPreviewButton,QtCore.SIGNAL('clicked()'),self.nextImage)
         QtCore.QObject.connect(self.previewSpinBox,QtCore.SIGNAL('valueChanged(int)'),self.changeImage)
         self.previewSpinBox.setMaximum(len(self.book.images)-1)
-        #TODO: change preview pic
         #TODO: preview pics popup
 
 
@@ -52,7 +51,17 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
         if index == -1:
             self.prevOrig.setPixmap(QtGui.QPixmap(":/img/preview/page.png"))
         else:
-            self.prevOrig.setPixmap(QtGui.QPixmap(self.book.images[index]))
+            imagename = unicode(self.book.images[index])
+            if imagename.startswith("ZIP://") and " NAME://" in imagename:
+                archivename, filename = imagename.split(" NAME://")
+                archivename = archivename[6:]
+                archive = zipfile.ZipFile(archivename)
+                qt_image = QtGui.QImage()
+                qt_image.loadFromData(archive.read(filename))
+                qt_pix = QtGui.QPixmap.fromImage(qt_image)
+                self.prevOrig.setPixmap(qt_pix)
+            else:
+                self.prevOrig.setPixmap(QtGui.QPixmap(self.book.images[index]))
         self.updatePreview()
 
 

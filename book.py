@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import os
+import os, zipfile
 from PyQt4 import QtGui, QtCore, QtXml
 
 from downloader import Downloader
@@ -140,6 +140,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
             directory = QtGui.QFileDialog.getExistingDirectory(self,'Select directory to save manga',QtCore.QDir.tempPath())
             if not os.path.isdir(unicode(directory)):
                 return
+            self.title = name.replace("_"," ")
             self.d = Downloader(action.text(),unicode(name),unicode(directory))
             self.d.setWindowModality(QtCore.Qt.ApplicationModal)
             self.d.show()
@@ -214,14 +215,17 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
 
     def onFilesDoubleClick(self, item):
         services = QtGui.QDesktopServices()
-        services.openUrl(QtCore.QUrl.fromLocalFile(item.text()))
+        filename = unicode(item.text())
+        if filename.startswith("ZIP://"):
+            filename = filename.split(" NAME://",1)[0][6:]
+        services.openUrl(QtCore.QUrl.fromLocalFile(filename))
 
 
     def onBookAddFiles(self):
         filenames = QtGui.QFileDialog.getOpenFileNames(
             parent=self,
             caption='Select image file(s) to add',
-            filter='Image files (*.jpeg *.jpg *.gif *.png);;All files (*.*)'
+            filter='All supported formats (*.jpeg *.jpg *.gif *.png *.zip *.cbz);;Image files (*.jpeg *.jpg *.gif *.png);;Zip packed images (*.zip *.cbz);;All files (*.*)'
         )
         self.addImageFiles(filenames)
 
@@ -369,10 +373,16 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         self.book.modified = True
 
     def addImageFiles(self, filenames):
+        filenames = [unicode(f) for f in filenames[:]]
         filenamesListed = []
         for i in xrange(0, self.listWidgetFiles.count()):
             filenamesListed.append(self.listWidgetFiles.item(i).text())
-
+        for filename in filenames[:]:
+            if zipfile.is_zipfile(unicode(filename)):
+                filenames.remove(filename)
+                for name in zipfile.ZipFile(unicode(filename)).namelist():
+                    if self.isImageFile(name,inArchive=True):
+                        filenames.append("ZIP://%s NAME://%s"%(filename,name))
         for filename in filenames:
             if filename not in filenamesListed:
                 self.addImageFile(QtCore.QString(filename))
@@ -391,13 +401,18 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         self.addImageFiles(filenames)
 
 
-    def isImageFile(self, filename):
-        imageExts = ['.jpeg', '.jpg', '.gif', '.png']
+    def isImageFile(self, filename, inArchive = False):
         filename = unicode(filename)
-        return (
-            os.path.isfile(filename) and
-            os.path.splitext(filename)[1].lower() in imageExts
-        )
+        imageExts = ['.jpeg', '.jpg', '.gif', '.png']
+        if not inArchive:
+            imageExts.append('.cbz')
+            imageExts.append('.zip')
+            return (
+                os.path.isfile(filename) and
+                os.path.splitext(filename)[1].lower() in imageExts
+            )
+        else:
+            return os.path.splitext(filename)[1].lower() in imageExts
 
 
     def cleanupBookFile(self, filename):

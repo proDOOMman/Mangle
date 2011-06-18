@@ -14,8 +14,8 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from PIL import Image, ImageDraw, ImageStat
-
+from PIL import Image, ImageDraw, ImageStat, ImageFile
+import zipfile
 
 class ImageFlags:
     Orient = 1 << 0
@@ -190,7 +190,15 @@ def convertImage(source, target, index, device, flags):
         raise RuntimeError('Unexpected output device %s' % device)
 
     try:
-        image = Image.open(source)
+        if source.startswith("ZIP://") and " NAME://" in source:
+            archivename, filename = source.split(" NAME://")
+            archivename = archivename[6:]
+            image_io = ImageFile.Parser()
+            archive = zipfile.ZipFile(archivename)
+            image_io.feed(archive.read(filename))
+            image = image_io.close()
+        else:
+            image = Image.open(source)
     except IOError:
         raise RuntimeError('Cannot read image file %s' % source)
     image = formatImage(image)
