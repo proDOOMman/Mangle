@@ -1,32 +1,35 @@
 all: \
 	clean \
-	ui/resources_rc.py \
-	ui/about_ui.py \
-	ui/options_ui.py \
-	ui/book_ui.py \
-	ui/downloader_ui.py \
+	mangle/ui/resources_rc.py \
+	mangle/ui/about_ui.py \
+	mangle/ui/options_ui.py \
+	mangle/ui/book_ui.py \
+	mangle/ui/downloader_ui.py \
 	locale
 
-ui/resources_rc.py: dev/res/resources.qrc
+mangle/ui/resources_rc.py: mangle/dev/res/resources.qrc
 	pyrcc4 $< -o $@
 
-ui/about_ui.py: dev/ui/about.ui
+mangle/ui/about_ui.py: mangle/dev/ui/about.ui
 	pyuic4 $< -o $@
 
-ui/options_ui.py: dev/ui/options.ui
+mangle/ui/options_ui.py: mangle/dev/ui/options.ui
 	pyuic4 $< -o $@
 
-ui/book_ui.py: dev/ui/book.ui
+mangle/ui/book_ui.py: mangle/dev/ui/book.ui
 	pyuic4 $< -o $@
 
-ui/downloader_ui.py: dev/ui/downloader.ui
+mangle/ui/downloader_ui.py: mangle/dev/ui/downloader.ui
 	pyuic4 $< -o $@
 
 locale:
 	LANGUAGE="ru_RU"
-	pylupdate4 ./*.py ./ui/*.py -ts mangle_${LANGUAGE}.ts
-	lrelease mangle_${LANGUAGE}.ts
+	pylupdate4 ./mangle/*.py ./mangle/ui/*.py -ts ./mangle/mangle_${LANGUAGE}.ts
+	lrelease ./mangle/mangle_${LANGUAGE}.ts
 
 clean:
-	rm ./ui/*
-	touch ./ui/__init__.py
+	rm ./mangle/ui/*
+	touch ./mangle/ui/__init__.py
+
+deb:
+	python setup.py --command-packages=stdeb.command bdist_deb

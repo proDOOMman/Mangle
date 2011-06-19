@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'dev/ui/options.ui'
+# Form implementation generated from reading ui file 'mangle/dev/ui/options.ui'
 #
-# Created: Sat Jun 18 20:54:23 2011
+# Created: Sun Jun 19 19:02:21 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -206,5 +206,5 @@ class Ui_DialogOptions(object):
         self.prevPreviewButton.setText(QtGui.QApplication.translate("DialogOptions", "...", None, QtGui.QApplication.UnicodeUTF8))
         self.nextPreviewButton.setText(QtGui.QApplication.translate("DialogOptions", "...", None, QtGui.QApplication.UnicodeUTF8))
 
-from imagecontainer import ImageContainer
+from mangle.imagecontainer import ImageContainer
 import resources_rc

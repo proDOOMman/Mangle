@@ -15,20 +15,25 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 # -*- coding: utf-8 -*-
 
 import sys
 from PyQt4 import QtGui
 from PyQt4.QtCore import QTranslator
-import locale
+from PyQt4.QtCore import QLocale
 
-from book import MainWindowBook
+from mangle.book import MainWindowBook
 
-application = QtGui.QApplication(sys.argv)
-tr = QTranslator()
-tr.load("mangle_%s.qm"%locale.getlocale()[0])
-application.installTranslator(tr)
-filename = sys.argv[1] if len(sys.argv) > 1 else None
-window = MainWindowBook(filename)
-window.show()
-application.exec_()
+def main():
+    application = QtGui.QApplication(sys.argv)
+    tr = QTranslator()
+    tr.load("mangle_%s.qm"%str(QLocale.system().name()),'/usr/share/mangle')
+    application.installTranslator(tr)
+    filename = sys.argv[1] if len(sys.argv) > 1 else None
+    window = MainWindowBook(filename)
+    window.show()
+    return application.exec_()
+
+if __name__ == "__main__":
+    sys.exit(main())

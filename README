@@ -1,0 +1,8 @@
+Mangle is pretty easy to use, so this won't be really in-depth. If you have any questions drop me a line though.
+* Add images to the current book by selecting the "Book | Add | Files" or "Book | Add | Directory" menu items
+* If certain images are not in the order you want, select them in the window, and select the "Book | Shift | Up" or "Book | Shift | Down" menu items
+* Configure the book title and image processing options by selecting "Book | Options"; this will be the title you see in the Kindle home menu
+* Create a root-level directory on your SD memory card/Kindle called "pictures" (case might matter)
+* Once you are satisfied with the your images and options select "Book | Export" and select the "pictures" directory you just created
+* After the export is complete your new manga books will show up along with all your other books (if they don't for some reason, press Alt+Z while on the home menu)
+

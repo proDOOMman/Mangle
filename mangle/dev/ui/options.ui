@@ -359,7 +359,7 @@
   <customwidget>
    <class>ImageContainer</class>
    <extends>QLabel</extends>
-   <header>imagecontainer</header>
+   <header>mangle.imagecontainer</header>
   </customwidget>
  </customwidgets>
  <resources>

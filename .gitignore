@@ -1,2 +1,3 @@
 *.pyc
-ui/*.pyc
+mangle/*.pyc
+mangle/ui/*.pyc

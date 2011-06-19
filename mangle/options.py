@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 from PyQt4 import QtGui, QtCore
 from PIL import Image
 from image import ImageFlags, KindleData
@@ -26,6 +25,9 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
     def __init__(self, parent, book):
         QtGui.QDialog.__init__(self, parent)
         self.book = book
+        self.timer = QtCore.QTimer()
+        self.timer.setSingleShot(True)
+        QtCore.QObject.connect(self.timer,QtCore.SIGNAL('timeout()'),self.updatePreview)
         self.setupUi(self)
         self.connect(self, QtCore.SIGNAL('accepted()'), self.onAccept)
         self.moveOptionsToDialog()
@@ -40,12 +42,17 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
         QtCore.QObject.connect(self.checkboxResize,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
         QtCore.QObject.connect(self.checkboxReverse,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
         QtCore.QObject.connect(self.checkboxSplit,QtCore.SIGNAL('toggled(bool)'),self.updatePreview)
-        QtCore.QObject.connect(self.thresholdSpinBox,QtCore.SIGNAL('valueChanged(double)'),self.updatePreview)
+        QtCore.QObject.connect(self.thresholdSpinBox,QtCore.SIGNAL('valueChanged(double)'),self.restartTimer)
         QtCore.QObject.connect(self.prevPreviewButton,QtCore.SIGNAL('clicked()'),self.prevImage)
         QtCore.QObject.connect(self.nextPreviewButton,QtCore.SIGNAL('clicked()'),self.nextImage)
         QtCore.QObject.connect(self.previewSpinBox,QtCore.SIGNAL('valueChanged(int)'),self.changeImage)
         self.previewSpinBox.setMaximum(len(self.book.images)-1)
         #TODO: preview pics popup
+
+
+    def restartTimer(self):
+        self.timer.stop()
+        self.timer.start(1500)
 
 
     def changeImage(self, index):

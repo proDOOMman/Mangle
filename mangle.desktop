@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Mangle
+GenericName=Manga for Kindle
+Comment=Convert and optimise manga for Amazon Kindle
+Comment[ru]=Конвертер и оптимизатор манги для Kindle
+Exec=mangle.pyw
+Icon=/usr/share/pixmaps/mangle.xmp
+Terminal=false
+Categories=Graphics;
+StartupNotify=true

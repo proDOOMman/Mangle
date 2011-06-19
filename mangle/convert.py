@@ -13,7 +13,6 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
-# -*- coding: utf-8 -*-
 
 import os
 from PyQt4 import QtGui, QtCore
@@ -32,6 +31,7 @@ class DialogConvert(QtGui.QProgressDialog):
         self.setValue(0)
         self.threadPool = QtCore.QThreadPool(self)
         self.threadPool.setExpiryTimeout(-1)
+        self.cbz = None
 
     def showEvent(self, event):
         directory = os.path.join(unicode(self.directory), unicode(self.book.title))

@@ -18,6 +18,7 @@ from PyQt4 import QtGui, QtCore
 class ImageContainer(QtGui.QLabel):
     def __init__(self,parent):
         QtGui.QLabel.__init__(self,parent)
+        self.original_pixmap = QtGui.QPixmap()
 
     def resizeEvent(self,event):
         if ( not self.original_pixmap == None ) and (not self.original_pixmap.isNull()):

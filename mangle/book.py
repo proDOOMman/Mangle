@@ -133,6 +133,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         self.listWidgetFiles.setContextMenuPolicy(QtCore.Qt.CustomContextMenu)
 
         self.book = Book()
+        self.d = None
         if filename != None:
             self.loadBook(filename)
 
@@ -144,7 +145,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
             directory = QtGui.QFileDialog.getExistingDirectory(self,'Select directory to save manga',QtCore.QDir.tempPath())
             if not os.path.isdir(unicode(directory)):
                 return
-            self.title = name.replace("_"," ")
+            self.book.title = name.replace("_"," ")
             self.d = Downloader(action.text(),unicode(name),unicode(directory))
             self.d.setWindowModality(QtCore.Qt.ApplicationModal)
             self.d.show()
@@ -384,9 +385,12 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         for filename in filenames[:]:
             if zipfile.is_zipfile(unicode(filename)):
                 filenames.remove(filename)
-                for name in zipfile.ZipFile(unicode(filename)).namelist():
-                    if self.isImageFile(name,inArchive=True):
-                        filenames.append("ZIP://%s NAME://%s"%(filename,name))
+                try:
+                    for name in zipfile.ZipFile(unicode(filename)).namelist():
+                        if self.isImageFile(name,inArchive=True):
+                            filenames.append("ZIP://%s NAME://%s"%(filename,name))
+                except UnicodeDecodeError:
+                    QtGui.QMessageBox.warning(self,"Warning","Can't open zip file %s: wrong encoding"%filename)
         for filename in filenames:
             if filename not in filenamesListed:
                 self.addImageFile(QtCore.QString(filename))
