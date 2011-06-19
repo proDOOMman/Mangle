@@ -26,6 +26,7 @@ if sys.platform.startswith('win'):
         options={'py2exe': {'bundle_files': 3, 'includes': ['sip']}},
         zipfile=None,
 		data_files = [
+			('', ['mangle\\mangle_ru_RU.qm']),
             ('imageformats', [
                 'imageformats\\qgif4.dll',
 				'imageformats\\qico4.dll',

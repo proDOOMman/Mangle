@@ -28,7 +28,10 @@ from mangle.book import MainWindowBook
 def main():
     application = QtGui.QApplication(sys.argv)
     tr = QTranslator()
-    tr.load("mangle_%s.qm"%str(QLocale.system().name()),'/usr/share/mangle')
+    if sys.platform.startswith('win'):
+        tr.load("mangle_%s.qm"%str(QLocale.system().name()))
+    else:
+        tr.load("mangle_%s.qm"%str(QLocale.system().name()),'/usr/share/mangle')
     application.installTranslator(tr)
     filename = sys.argv[1] if len(sys.argv) > 1 else None
     window = MainWindowBook(filename)
