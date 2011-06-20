@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import os, zipfile
+import os, zipfile, re
 from PyQt4 import QtGui, QtCore, QtXml
 
 from downloader import Downloader
@@ -405,8 +405,18 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
                     path = os.path.join(root, filename)
                     if self.isImageFile(path):
                         filenames.append(path)
-        filenames.sort()
+        filenames = sorted(filenames,cmp=self.smart_sort)
         self.addImageFiles(filenames)
+
+
+    def smart_sort(self,x,y):
+        r = re.compile(r'\d+')
+        x_ints = r.findall(x)
+        y_ints = r.findall(y)
+        for i in range(max(len(x_ints),len(y_ints))):
+            if not x_ints[i] == y_ints[i]:
+                return int(x_ints[i]) - int(y_ints[i])
+        return cmp(x,y)
 
 
     def isImageFile(self, filename, inArchive = False):
