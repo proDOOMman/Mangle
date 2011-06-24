@@ -71,6 +71,7 @@
      </property>
      <addaction name="actionReadmanga"/>
      <addaction name="actionAdultmanga"/>
+     <addaction name="actionMangareader_net"/>
     </widget>
     <addaction name="actionBookOptions"/>
     <addaction name="separator"/>
@@ -298,6 +299,11 @@
   <action name="actionAdultmanga">
    <property name="text">
     <string>adultmanga.ru</string>
+   </property>
+  </action>
+  <action name="actionMangareader_net">
+   <property name="text">
+    <string>mangareader.net</string>
    </property>
   </action>
  </widget>

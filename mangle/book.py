@@ -145,7 +145,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
             directory = QtGui.QFileDialog.getExistingDirectory(self,'Select directory to save manga',QtCore.QDir.tempPath())
             if not os.path.isdir(unicode(directory)):
                 return
-            self.book.title = name[:].replace("_"," ")
+            self.book.title = name[:].replace("_"," ").replace("-"," ")
             self.d = Downloader(action.text(),unicode(name),unicode(directory))
             self.d.setWindowModality(QtCore.Qt.ApplicationModal)
             self.d.show()

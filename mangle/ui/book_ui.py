@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'mangle/dev/ui/book.ui'
 #
-# Created: Sun Jun 19 19:02:22 2011
+# Created: Fri Jun 24 14:44:09 2011
 #      by: PyQt4 UI code generator 4.8.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -106,6 +106,8 @@ class Ui_MainWindowBook(object):
         self.actionReadmanga.setObjectName(_fromUtf8("actionReadmanga"))
         self.actionAdultmanga = QtGui.QAction(MainWindowBook)
         self.actionAdultmanga.setObjectName(_fromUtf8("actionAdultmanga"))
+        self.actionMangareader_net = QtGui.QAction(MainWindowBook)
+        self.actionMangareader_net.setObjectName(_fromUtf8("actionMangareader_net"))
         self.menu_File.addAction(self.actionFileNew)
         self.menu_File.addAction(self.actionFileOpen)
         self.menu_File.addAction(self.actionFileSave)
@@ -118,6 +120,7 @@ class Ui_MainWindowBook(object):
         self.menu_Shift.addAction(self.actionBookShiftDown)
         self.menuDownload.addAction(self.actionReadmanga)
         self.menuDownload.addAction(self.actionAdultmanga)
+        self.menuDownload.addAction(self.actionMangareader_net)
         self.menu_Book.addAction(self.actionBookOptions)
         self.menu_Book.addSeparator()
         self.menu_Book.addAction(self.menu_Add.menuAction())
@@ -196,5 +199,6 @@ class Ui_MainWindowBook(object):
         self.actionBookShiftDown.setShortcut(QtGui.QApplication.translate("MainWindowBook", "Ctrl+PgDown", None, QtGui.QApplication.UnicodeUTF8))
         self.actionReadmanga.setText(QtGui.QApplication.translate("MainWindowBook", "readmanga.ru", None, QtGui.QApplication.UnicodeUTF8))
         self.actionAdultmanga.setText(QtGui.QApplication.translate("MainWindowBook", "adultmanga.ru", None, QtGui.QApplication.UnicodeUTF8))
+        self.actionMangareader_net.setText(QtGui.QApplication.translate("MainWindowBook", "mangareader.net", None, QtGui.QApplication.UnicodeUTF8))
 
 import resources_rc

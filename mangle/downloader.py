@@ -13,20 +13,21 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import os
-import re
-import urllib
+import os, re, urllib
 from PyQt4 import QtGui, QtCore
 from ui.downloader_ui import Ui_Downloader
 
 class Downloader(QtGui.QWidget, Ui_Downloader):
-    avaliableSites = [ "readmanga.ru" , "adultmanga.ru" ]
+    avaliableSites = [ "readmanga.ru" , "adultmanga.ru" , "mangareader.net" ]
     def __init__(self, sitename, manganame, output_directory):
         QtGui.QWidget.__init__(self)
         self.setupUi(self)
         if not sitename in self.avaliableSites:
             raise RuntimeError("Can't download manga from %s" % sitename)
-        self.downloadThread = DownloadThread(sitename,manganame,output_directory)
+        if sitename == "mangareader.net":
+            self.downloadThread = MangareaderThread(sitename,manganame,output_directory)
+        else:
+            self.downloadThread = ReadmangaThread(sitename,manganame,output_directory)
         QtCore.QObject.connect(self.downloadThread,QtCore.SIGNAL("pagesCounted(int)"),self.pageProgressBar.setMaximum)
         QtCore.QObject.connect(self.downloadThread,QtCore.SIGNAL("picsCounted(int)"),self.picProgressBar.setMaximum)
         QtCore.QObject.connect(self.downloadThread,QtCore.SIGNAL("log(QString)"),self.log.append)
@@ -57,6 +58,84 @@ class DownloadThread(QtCore.QThread):
         self.site = site
         self.name = name
         self.outdir = outdir
+
+class MangareaderThread(DownloadThread):
+    def __init__(self, site, name, outdir):
+        DownloadThread.__init__(self,site,name,outdir)
+
+    def download(self, url, filename):
+        try:
+            urllib.urlretrieve(url, filename)
+        except IOError, error:
+            print "Error: %s"%str(error)
+            return False
+        return True
+
+    def run(self):
+        try:
+            from BeautifulSoup import BeautifulSoup
+        except ImportError:
+            self.emit(QtCore.SIGNAL("finish(QString)"),'BeautifulSoup library not found!')
+            return
+        base_url = "http://mangareader.net"
+        manga = self.name
+        download_dir = "%s/%s/"%(self.outdir,manga)
+        try:
+            soup = BeautifulSoup(urllib.urlopen("%s/%s"%(base_url, manga)).read())
+        except:
+            self.emit(QtCore.SIGNAL("finish(QString)"),'Error while downloading or parsing')
+            return
+        cl = soup.find('div', id='chapterlist')
+        if cl == None:
+            self.emit(QtCore.SIGNAL("finish(QString)"),'Manga not found')
+            return
+        chapterList = cl.findAll('a')
+        self.emit(QtCore.SIGNAL("pagesCounted(int)"),len(chapterList))
+        for a in chapterList:
+            html = urllib.urlopen("%s%s"%(base_url, a['href'])).read()
+            chapter = BeautifulSoup(html)
+            chapter_num = re.findall(r"document\['chapterno'\] = (\d+);", html)[0]
+            if int(chapter_num) < 5:
+                continue
+            cur_dir = "%s%s/"%(download_dir, chapter_num)
+            if not os.path.isdir(cur_dir):
+                try:
+                    os.makedirs(cur_dir)
+                except:
+                    self.emit(QtCore.SIGNAL("finish(QString)"),"Error while creating dir %s"%cur_dir)
+                    return
+            menu = chapter.find('select', id="pageMenu")
+            self.emit(QtCore.SIGNAL("log(QString)"),QtCore.QString("Chapter %s"%chapter_num))
+            self.emit(QtCore.SIGNAL("currentPageChanged(int)"),chapterList.index(a))
+            self.emit(QtCore.SIGNAL("pageLabelChanged(QString)"),QtCore.QString(a['href']))
+            self.emit(QtCore.SIGNAL("picLabelChanged(QString)"),QtCore.QString("..."))
+            self.emit(QtCore.SIGNAL("picsCounted(int)"),0)
+            self.emit(QtCore.SIGNAL("currentPicChanged(int)"),1)
+            pages = menu.findAll('option')
+            self.emit(QtCore.SIGNAL("picsCounted(int)"),len(pages)-1)
+            for option in pages:
+                page = BeautifulSoup(urllib.urlopen("%s%s"%(base_url, option['value'])).read())
+                img = page.find('img', id='img')['src']
+                name = "%03d_%s"%(int(option.text), os.path.split(img)[1])
+                self.emit(QtCore.SIGNAL("picLabelChanged(QString)"),QtCore.QString(img))
+                self.emit(QtCore.SIGNAL("currentPicChanged(int)"),pages.index(option))
+                if not os.path.isfile(cur_dir+name):
+                    self.emit(QtCore.SIGNAL("log(QString)"),"%s -> %s"%(img,cur_dir+name))
+                    while not self.download(img, cur_dir+name):
+                        self.emit(QtCore.SIGNAL("log(QString)"),"Repeat...")
+                    self.emit(QtCore.SIGNAL("targetCompleted(QString)"),cur_dir+name)
+                else:
+                    self.emit(QtCore.SIGNAL("log(QString)"),"Skip: %s"%img)
+                    self.emit(QtCore.SIGNAL("targetCompleted(QString)"),cur_dir+name)
+                pass
+        self.emit(QtCore.SIGNAL("pageLabelChanged(QString)"),QtCore.QString('Finished'))
+        self.emit(QtCore.SIGNAL("picLabelChanged(QString)"),QtCore.QString('Finished'))
+        self.emit(QtCore.SIGNAL("currentPageChanged(int)"),len(chapterList))
+        self.emit(QtCore.SIGNAL("finish(QString)"),'')
+
+class ReadmangaThread(DownloadThread):
+    def __init__(self, site, name, outdir):
+        DownloadThread.__init__(self,site,name,outdir)
 
     def run(self):
         i = 0 # file enumerator

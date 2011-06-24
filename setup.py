@@ -41,7 +41,7 @@ else:
     from setuptools import setup, find_packages
     setup(
         name = "Mangle",
-        version = "2.4.1",
+        version = "2.4.2",
         packages = find_packages(),
         scripts = ['mangle.pyw'],
         author = "Alex Yatskov, Stanislav (proDOOMman) Kosolapov",
