@@ -95,8 +95,6 @@ class MangareaderThread(DownloadThread):
             html = urllib.urlopen("%s%s"%(base_url, a['href'])).read()
             chapter = BeautifulSoup(html)
             chapter_num = re.findall(r"document\['chapterno'\] = (\d+);", html)[0]
-            if int(chapter_num) < 5:
-                continue
             cur_dir = "%s%s/"%(download_dir, chapter_num)
             if not os.path.isdir(cur_dir):
                 try:
