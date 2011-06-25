@@ -276,7 +276,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
 
     def onHelpHomepage(self):
         services = QtGui.QDesktopServices()
-        services.openUrl(QtCore.QUrl('http://foosoft.net/mangle'))
+        services.openUrl(QtCore.QUrl('https://github.com/proDOOMman/Mangle'))
 
 
     def onHelpAbout(self):
