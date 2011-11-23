@@ -97,8 +97,8 @@ def resizeImage(image, size):
     widthDev, heightDev = size
     widthImg, heightImg = image.size
 
-    if widthImg <= widthDev and heightImg <= heightDev:
-        return image
+#    if widthImg <= widthDev and heightImg <= heightDev:
+#        return image
 
     ratioImg = float(widthImg) / float(heightImg)
     ratioWidth = float(widthImg) / float(widthDev)
