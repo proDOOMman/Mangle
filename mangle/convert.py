@@ -89,7 +89,10 @@ class DialogConvert(QtGui.QProgressDialog):
 
     def packPage(self,page):
         self.cbz.write(page,os.path.split(page)[1])
-        os.remove(page)
+	try:
+            os.remove(page)
+	except:
+	    pass
 
     def postprocessImages(self,images):
         self.setValue(self.value()+1)
