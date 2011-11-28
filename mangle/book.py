@@ -113,6 +113,7 @@ class Book:
 class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
     def __init__(self, filename=None):
         QtGui.QMainWindow.__init__(self)
+	self.settings = QtCore.QSettings("Mangle")
         self.setupUi(self)
         self.connect(self.actionFileNew, QtCore.SIGNAL('triggered()'), self.onFileNew)
         self.connect(self.actionFileOpen, QtCore.SIGNAL('triggered()'), self.onFileOpen)
@@ -142,9 +143,10 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
             name, ok = QtGui.QInputDialog.getText(self,'Manga downloading','Please, enter manga name:')
             if not ok:
                 return
-            directory = QtGui.QFileDialog.getExistingDirectory(self,'Select directory to save manga',QtCore.QDir.tempPath())
+            directory = QtGui.QFileDialog.getExistingDirectory(self,'Select directory to save manga',self.settings.value("downloadManga",QtCore.QDir.tempPath()).toString())
             if not os.path.isdir(unicode(directory)):
                 return
+	    self.settings.setValue("downloadManga",directory);
             self.book.title = name[:].replace("_"," ").replace("-"," ")
             self.d = Downloader(action.text(),unicode(name),unicode(directory))
             self.d.setWindowModality(QtCore.Qt.ApplicationModal)
@@ -221,8 +223,8 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
     def onFilesDoubleClick(self, item):
         services = QtGui.QDesktopServices()
         filename = unicode(item.text())
-        if filename.startswith("ZIP://"):
-            filename = filename.split(" NAME://",1)[0][6:]
+        if filename.startswith("ZIP://") or filename.startswith("RAR://"):
+	    return;
         services.openUrl(QtCore.QUrl.fromLocalFile(filename))
 
 
@@ -230,14 +232,20 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         filenames = QtGui.QFileDialog.getOpenFileNames(
             parent=self,
             caption='Select image file(s) to add',
-            filter='All supported formats (*.jpeg *.jpg *.gif *.png *.zip *.cbz *.rar *.cbr);;Image files (*.jpeg *.jpg *.gif *.png);;Image archives (*.zip *.cbz *.rar *.cbr);;All files (*.*)'
+            filter='All supported formats (*.jpeg *.jpg *.gif *.png *.zip *.cbz *.rar *.cbr);;Image files (*.jpeg *.jpg *.gif *.png);;Image archives (*.zip *.cbz *.rar *.cbr);;All files (*.*)',
+	    directory=self.settings.value("bookadd",QtCore.QDir.tempPath()).toString()
         )
+	if len(filenames)>0:
+            if os.path.isfile(unicode(filenames[0])):
+                if os.path.isdir(os.path.split(unicode(filenames[0]))[0]):
+                    self.settings.setValue("bookadd",os.path.split(unicode(filenames[0]))[0]);
         self.addImageFiles(filenames)
 
 
     def onBookAddDirectory(self):
-        directory = QtGui.QFileDialog.getExistingDirectory(self, 'Select an image directory to add')
+        directory = QtGui.QFileDialog.getExistingDirectory(self, 'Select an image directory to add',self.settings.value("bookadd",QtCore.QDir.tempPath()).toString())
         if not directory.isNull():
+            self.settings.setValue("bookadd",directory)
             self.addImageDirs([directory])
 
 
@@ -268,8 +276,9 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
             if dialog.exec_() == QtGui.QDialog.Rejected:
                 return
 
-        directory = QtGui.QFileDialog.getExistingDirectory(self, 'Select a directory to export book to')
+        directory = QtGui.QFileDialog.getExistingDirectory(self, 'Select a directory to export book to',self.settings.value("exportdir",QtCore.QDir.tempPath()).toString())
         if not directory.isNull():
+            self.settings.setValue("exportdir",directory)
             dialog = DialogConvert(self, self.book, directory)
             dialog.exec_()
 
