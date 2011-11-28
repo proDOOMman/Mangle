@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
-import os, zipfile, re
+import os, zipfile, re, rarfile
 from PyQt4 import QtGui, QtCore, QtXml
 
 from downloader import Downloader
@@ -230,7 +230,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         filenames = QtGui.QFileDialog.getOpenFileNames(
             parent=self,
             caption='Select image file(s) to add',
-            filter='All supported formats (*.jpeg *.jpg *.gif *.png *.zip *.cbz);;Image files (*.jpeg *.jpg *.gif *.png);;Zip packed images (*.zip *.cbz);;All files (*.*)'
+            filter='All supported formats (*.jpeg *.jpg *.gif *.png *.zip *.cbz *.rar *.cbr);;Image files (*.jpeg *.jpg *.gif *.png);;Image archives (*.zip *.cbz *.rar *.cbr);;All files (*.*)'
         )
         self.addImageFiles(filenames)
 
@@ -383,6 +383,14 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         for i in xrange(0, self.listWidgetFiles.count()):
             filenamesListed.append(self.listWidgetFiles.item(i).text())
         for filename in filenames[:]:
+	    if rarfile.is_rarfile(unicode(filename)):
+                filenames.remove(filename)
+                try:
+                    for name in rarfile.RarFile(unicode(filename)).namelist():
+                        if self.isImageFile(name,inArchive=True):
+                            filenames.append("RAR://%s NAME://%s"%(filename,name))
+                except UnicodeDecodeError:
+                    QtGui.QMessageBox.warning(self,"Warning","Can't open rar file %s: wrong encoding"%filename)
             if zipfile.is_zipfile(unicode(filename)):
                 filenames.remove(filename)
                 try:
@@ -413,7 +421,7 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         r = re.compile(r'\d+')
         x_ints = r.findall(x)
         y_ints = r.findall(y)
-        for i in range(max(len(x_ints),len(y_ints))):
+        for i in range(min(len(x_ints),len(y_ints))):
             if not x_ints[i] == y_ints[i]:
                 return int(x_ints[i]) - int(y_ints[i])
         return cmp(x,y)
@@ -425,6 +433,8 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
         if not inArchive:
             imageExts.append('.cbz')
             imageExts.append('.zip')
+	    imageExts.append('.cbr')
+            imageExts.append('.rar')
             return (
                 os.path.isfile(filename) and
                 os.path.splitext(filename)[1].lower() in imageExts

@@ -15,7 +15,7 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from PIL import Image, ImageDraw, ImageStat, ImageFile
-import zipfile
+import zipfile, rarfile
 
 class ImageFlags:
     Orient = 1 << 0
@@ -214,6 +214,16 @@ def convertImage(source, target, index, device, flags, crop_threshold):
                 archivename = archivename[6:]
                 image_io = ImageFile.Parser()
                 archive = zipfile.ZipFile(archivename)
+                image_io.feed(archive.read(filename))
+                image = image_io.close()
+            except RuntimeError:
+                raise RuntimeError('Cannot read image file %s' % source)
+	elif source.startswith("RAR://") and " NAME://" in source:
+            try:
+                archivename, filename = source.split(" NAME://")
+                archivename = archivename[6:]
+                image_io = ImageFile.Parser()
+                archive = rarfile.RarFile(archivename)
                 image_io.feed(archive.read(filename))
                 image = image_io.close()
             except RuntimeError:

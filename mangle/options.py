@@ -19,7 +19,7 @@ from PIL import Image
 from image import ImageFlags, KindleData
 from ui.options_ui import Ui_DialogOptions
 import image as Img
-import zipfile
+import zipfile, rarfile
 
 class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
     def __init__(self, parent, book):
@@ -65,6 +65,17 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
                     archivename, filename = imagename.split(" NAME://")
                     archivename = archivename[6:]
                     archive = zipfile.ZipFile(archivename)
+                    qt_image = QtGui.QImage()
+                    qt_image.loadFromData(archive.read(filename))
+                    qt_pix = QtGui.QPixmap.fromImage(qt_image)
+                except RuntimeError:
+                    self.prevOrig.setPixmap(QtGui.QPixmap())
+                self.prevOrig.setPixmap(qt_pix)
+	    elif imagename.startswith("RAR://") and " NAME://" in imagename:
+                try:
+                    archivename, filename = imagename.split(" NAME://")
+                    archivename = archivename[6:]
+                    archive = rarfile.RarFile(archivename)
                     qt_image = QtGui.QImage()
                     qt_image.loadFromData(archive.read(filename))
                     qt_pix = QtGui.QPixmap.fromImage(qt_image)
