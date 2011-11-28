@@ -214,7 +214,10 @@ def convertImage(source, target, index, device, flags, crop_threshold):
                 archivename = archivename[6:]
                 image_io = ImageFile.Parser()
                 archive = zipfile.ZipFile(archivename)
-                image_io.feed(archive.read(filename))
+		try:
+                    image_io.feed(archive.read(filename))
+		except KeyError:
+		    image_io.feed(archive.read(filename.encode("cp866")))
                 image = image_io.close()
             except RuntimeError:
                 raise RuntimeError('Cannot read image file %s' % source)

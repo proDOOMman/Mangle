@@ -14,7 +14,6 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 import os, zipfile, re, rarfile
 from PyQt4 import QtGui, QtCore, QtXml
 
@@ -404,8 +403,13 @@ class MainWindowBook(QtGui.QMainWindow, Ui_MainWindowBook):
                 filenames.remove(filename)
                 try:
                     for name in zipfile.ZipFile(unicode(filename)).namelist():
-                        if self.isImageFile(name,inArchive=True):
-                            filenames.append("ZIP://%s NAME://%s"%(filename,name))
+			try:
+			    unicode_name = name.decode('UTF-8').encode('UTF-8')
+			except:
+			    unicode_name = name.decode('cp866').encode('UTF-8')
+			unicode_name = unicode(unicode_name,'utf-8')
+                        if self.isImageFile(unicode_name,inArchive=True):
+                            filenames.append("ZIP://%s NAME://%s"%(filename,unicode_name))
                 except UnicodeDecodeError:
                     QtGui.QMessageBox.warning(self,"Warning","Can't open zip file %s: wrong encoding"%filename)
         for filename in filenames:

@@ -66,7 +66,10 @@ class DialogOptions(QtGui.QDialog, Ui_DialogOptions):
                     archivename = archivename[6:]
                     archive = zipfile.ZipFile(archivename)
                     qt_image = QtGui.QImage()
-                    qt_image.loadFromData(archive.read(filename))
+		    try:
+                        qt_image.loadFromData(archive.read(filename))
+		    except KeyError:
+			qt_image.loadFromData(archive.read(filename.encode("cp866")))
                     qt_pix = QtGui.QPixmap.fromImage(qt_image)
                 except RuntimeError:
                     self.prevOrig.setPixmap(QtGui.QPixmap())
