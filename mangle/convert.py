@@ -35,7 +35,10 @@ class DialogConvert(QtGui.QProgressDialog):
 
     def showEvent(self, event):
         directory = os.path.join(unicode(self.directory), unicode(self.book.title))
-        target = os.path.join(directory, '%05d.png')
+        if self.book.imageFlags & ImageFlags.Quantize:
+            target = os.path.join(directory, '%05d.png')
+        else:
+            target = os.path.join(directory, '%05d.jpg')
         try:
             if not os.path.isdir(directory):
                 os.makedirs(directory)
