@@ -36,7 +36,7 @@ class KindleData:
         0xff, 0xff, 0xff
     ]
 
-    Palette15a = [
+    Palette15 = [
         0x00, 0x00, 0x00,
         0x11, 0x11, 0x11,
         0x22, 0x22, 0x22,
@@ -54,13 +54,14 @@ class KindleData:
         0xff, 0xff, 0xff,
     ]
 
-    Palette15b = [
+    Palette16 = [
         0x00, 0x00, 0x00,
         0x11, 0x11, 0x11,
         0x22, 0x22, 0x22,
         0x33, 0x33, 0x33,
         0x44, 0x44, 0x44,
         0x55, 0x55, 0x55,
+        0x66, 0x66, 0x66,
         0x77, 0x77, 0x77,
         0x88, 0x88, 0x88,
         0x99, 0x99, 0x99,
@@ -74,15 +75,17 @@ class KindleData:
 
     Profiles = {
         'Kindle 1': ((600, 800), Palette4),
-        'Kindle 2': ((600, 800), Palette15a),
-        'Kindle 3': ((600, 800), Palette15a),
-        'Kindle 4': ((600, 800), Palette15b),
-        'Kindle DX': ((824, 1200), Palette15a),
-        'Kindle DXG': ((824, 1200), Palette15a)
+        'Kindle 2': ((600, 800), Palette15),
+        'Kindle 3': ((600, 800), Palette16),
+        'Kindle 4': ((600, 800), Palette16),
+        'Kindle DX': ((824, 1200), Palette15),
+        'Kindle DXG': ((824, 1200), Palette16)
     }
 
 
 def quantizeImage(image, palette):
+    image = image.convert('L')    # convert to grayscale
+    image = image.convert("RGB")    # convert back to RGB
     colors = len(palette) / 3
     if colors < 256:
         palette = palette + palette[:3] * (256 - colors)
