@@ -18,7 +18,7 @@ from PyQt4 import QtGui, QtCore
 from ui.downloader_ui import Ui_Downloader
 
 class Downloader(QtGui.QWidget, Ui_Downloader):
-    avaliableSites = [ "readmanga.ru" , "adultmanga.ru" , "mangareader.net" ]
+    avaliableSites = [ "readmanga.ru" , "mintmanga.com" , "mangareader.net" ]
     def __init__(self, sitename, manganame, output_directory):
         QtGui.QWidget.__init__(self)
         self.setupUi(self)
